@@ -1,13 +1,14 @@
 ---
 interface Props {
   title: string;
+  id?: string;
   actionLabel?: string;
   actionHref?: string;
 }
-const { title, actionLabel, actionHref } = Astro.props;
+const { title, id, actionLabel, actionHref } = Astro.props;
 ---
 
 <header class="section-heading">
-  <h2>{title}</h2>
+  <h2 {id}>{title}</h2>
   {actionLabel && actionHref && <a class="link link-hover section-action" href={actionHref}>{actionLabel} →</a>}
 </header>

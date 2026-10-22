@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import type { Locale } from "../i18n";
 import { localized, ui } from "../i18n";
 import { getSiteData } from "../lib/content";
+import EntityMark from "./EntityMark.astro";
 import SectionHeading from "./SectionHeading.astro";
 
 interface Props { lang: Locale }
@@ -40,15 +41,16 @@ byOrder(honors);
 
   <section class="resume-section">
     <SectionHeading title={t.experience} />
-    <ol class="timeline-list">
+    <ol class="list entity-list">
       {experience.map((item) => (
-        <li class="timeline-row">
-          <span class="timeline-date">{item.data.period}</span>
-          <div>
-            <h3>{localized(item.data.role, lang)}</h3>
-            <p class="timeline-org">{localized(item.data.organization, lang)}</p>
+        <li class="list-row entity-row">
+          <EntityMark name={item.data.organization} logo={item.data.logo} {lang} />
+          <div class="list-col-grow entity-copy">
+            <h3>{localized(item.data.organization, lang)}</h3>
+            <p class="entity-role">{localized(item.data.role, lang)}</p>
             <p>{localized(item.data.description, lang)}</p>
           </div>
+          <span class="entity-date">{item.data.period}</span>
         </li>
       ))}
     </ol>
@@ -56,14 +58,15 @@ byOrder(honors);
 
   <section class="resume-section">
     <SectionHeading title={t.education} />
-    <ol class="timeline-list">
+    <ol class="list entity-list">
       {education.map((item) => (
-        <li class="timeline-row">
-          <span class="timeline-date">{item.data.period}</span>
-          <div>
+        <li class="list-row entity-row">
+          <EntityMark name={item.data.institution} logo={item.data.logo} {lang} />
+          <div class="list-col-grow entity-copy">
             <h3>{localized(item.data.institution, lang)}</h3>
-            <p>{localized(item.data.program, lang)}</p>
+            <p class="entity-role">{localized(item.data.program, lang)}</p>
           </div>
+          <span class="entity-date">{item.data.period}</span>
         </li>
       ))}
     </ol>

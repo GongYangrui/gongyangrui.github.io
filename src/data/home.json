@@ -3,7 +3,11 @@
     "id": "home",
     "experience": {
       "enabled": true,
-      "itemIds": ["zhihang-ren-ra", "sky-lab", "huaxiu-yao-lab"]
+      "itemIds": ["zhihang-ren-ra", "sky-lab", "huaxiu-yao-lab", "xin-yang-lab"]
+    },
+    "education": {
+      "enabled": true,
+      "itemIds": ["hust", "uw-madison", "ccnu-no1"]
     },
     "projects": {
       "enabled": false,
@@ -12,6 +16,14 @@
     "writing": {
       "enabled": true,
       "itemIds": ["rclone-google-drive", "mini-program-structure", "hello-world"]
+    },
+    "publications": {
+      "enabled": true,
+      "itemIds": ["cares", "masked-snake-attention", "zero-shot-multilabel", "raps-plus"]
+    },
+    "honors": {
+      "enabled": true,
+      "itemIds": ["rugby-2024", "rugby-2023"]
     }
   }
 ]

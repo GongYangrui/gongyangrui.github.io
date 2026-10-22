@@ -34,8 +34,10 @@ Content can also be edited directly:
 - English posts: `src/content/writing/en/*.md`
 - Chinese posts: `src/content/writing/zh/*.md`
 - Homepage selection and order: `src/data/home.json`
+- Organization logos and project images: upload in the CMS Media view, then select the image on the relevant entry
 
 `itemIds` controls homepage order. Set a module's `enabled` field to `false` to remove it completely. Projects are intentionally disabled by default.
+Logos are optional. If an experience or education entry has no image, the interface shows a compact initial mark instead of a broken image or placeholder message. Each uploaded image also has bilingual alternative text fields.
 
 ## Publishing a post
 

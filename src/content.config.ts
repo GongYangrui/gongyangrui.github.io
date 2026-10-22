@@ -11,6 +11,11 @@ const link = z.object({
   url: z.string().url(),
 });
 
+const visual = z.object({
+  src: z.string().min(1),
+  alt: localizedText,
+});
+
 const profile = defineCollection({
   loader: file("src/data/profile.json"),
   schema: z.object({
@@ -27,8 +32,11 @@ const home = defineCollection({
   loader: file("src/data/home.json"),
   schema: z.object({
     experience: z.object({ enabled: z.boolean(), itemIds: z.array(z.string()) }),
+    education: z.object({ enabled: z.boolean(), itemIds: z.array(z.string()) }),
     projects: z.object({ enabled: z.boolean(), itemIds: z.array(z.string()) }),
     writing: z.object({ enabled: z.boolean(), itemIds: z.array(z.string()) }),
+    publications: z.object({ enabled: z.boolean(), itemIds: z.array(z.string()) }),
+    honors: z.object({ enabled: z.boolean(), itemIds: z.array(z.string()) }),
   }),
 });
 
@@ -42,6 +50,7 @@ const experience = defineCollection({
     description: localizedText,
     category: z.enum(["engineering", "research"]),
     url: z.string().url().optional(),
+    logo: visual.optional(),
   }),
 });
 
@@ -53,6 +62,7 @@ const education = defineCollection({
     institution: localizedText,
     program: localizedText,
     url: z.string().url().optional(),
+    logo: visual.optional(),
   }),
 });
 
@@ -63,6 +73,7 @@ const projects = defineCollection({
     summary: localizedText,
     technologies: z.array(z.string()),
     links: z.array(link),
+    image: visual.optional(),
   }),
 });
 

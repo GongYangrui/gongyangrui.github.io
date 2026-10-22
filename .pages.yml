@@ -47,6 +47,12 @@ content:
         fields:
           - { name: enabled, label: Show module, type: boolean, default: true }
           - { name: itemIds, label: Item IDs in display order, type: string, list: true }
+      - name: education
+        label: Education module
+        type: object
+        fields:
+          - { name: enabled, label: Show module, type: boolean, default: true }
+          - { name: itemIds, label: Item IDs in display order, type: string, list: true }
       - name: projects
         label: Projects module
         type: object
@@ -59,6 +65,18 @@ content:
         fields:
           - { name: enabled, label: Show module, type: boolean, default: true }
           - { name: itemIds, label: Translation keys in display order, type: string, list: true }
+      - name: publications
+        label: Publications module
+        type: object
+        fields:
+          - { name: enabled, label: Show module, type: boolean, default: true }
+          - { name: itemIds, label: Item IDs in display order, type: string, list: true }
+      - name: honors
+        label: Honors module
+        type: object
+        fields:
+          - { name: enabled, label: Show module, type: boolean, default: true }
+          - { name: itemIds, label: Item IDs in display order, type: string, list: true }
 
   - name: experience
     label: Experience
@@ -94,6 +112,17 @@ content:
         options:
           values: [engineering, research]
       - { name: url, label: URL, type: string }
+      - name: logo
+        label: Organization logo
+        type: object
+        fields:
+          - { name: src, label: Image, type: image }
+          - name: alt
+            label: Alternative text
+            type: object
+            fields:
+              - { name: en, label: English, type: string }
+              - { name: zh, label: 中文, type: string }
 
   - name: education
     label: Education
@@ -118,6 +147,17 @@ content:
           - { name: en, label: English, type: string, required: true }
           - { name: zh, label: 中文, type: string, required: true }
       - { name: url, label: URL, type: string }
+      - name: logo
+        label: Institution logo
+        type: object
+        fields:
+          - { name: src, label: Image, type: image }
+          - name: alt
+            label: Alternative text
+            type: object
+            fields:
+              - { name: en, label: English, type: string }
+              - { name: zh, label: 中文, type: string }
 
   - name: projects
     label: Projects
@@ -135,6 +175,17 @@ content:
           - { name: en, label: English, type: text, required: true }
           - { name: zh, label: 中文, type: text, required: true }
       - { name: technologies, label: Technologies, type: string, list: true }
+      - name: image
+        label: Project image
+        type: object
+        fields:
+          - { name: src, label: Image, type: image }
+          - name: alt
+            label: Alternative text
+            type: object
+            fields:
+              - { name: en, label: English, type: string }
+              - { name: zh, label: 中文, type: string }
       - name: links
         label: Links
         type: object

@@ -2,7 +2,7 @@
 
 ## Direction
 
-The site is a quiet, content-led engineering portfolio. It borrows the directness of a small personal homepage, the confidence of one large typographic gesture, and the discipline of technical documentation. It must never look like an academic template, a SaaS landing page, or a cyberpunk developer portfolio.
+The site is a direct, single-page professional introduction inspired by the open rhythm and oversized greeting of mhouge.dk. It combines that simplicity with a highly scannable resume index: organization mark, organization, role, description, and date. It must never look like an academic template, a SaaS landing page, or a cyberpunk developer portfolio.
 
 ## Theme
 
@@ -30,19 +30,19 @@ The strategy is restrained: tinted neutral surfaces and one signal-red accent us
 
 ## Layout
 
-- Main reading shell: approximately 58rem.
+- Main reading shell: approximately 68rem, allowing resume rows to stay easy to scan.
 - Spacing uses a 4px base with meaningful rhythm rather than equal padding.
 - Sections are grouped with whitespace and one-pixel rules, not cards.
-- Homepage order is fixed: hero, experience, optional projects, writing, footer.
+- Homepage order is fixed: hero, experience, education, optional projects, writing, publications, honors, footer.
 - At narrow widths, date/content rows stack and navigation remains visible without a drawer.
 
 ## Components
 
 - Header: compact horizontal navigation using text links.
 - Hero: large greeting and role statement, two direct calls to action.
-- Timeline row: date column plus content column separated by whitespace, not a decorative stripe.
+- Resume row: optional organization image (with an initial fallback), content column, and a right-aligned date.
 - Writing row: date, title, summary, and language label.
-- Project row: title, concise problem statement, technology list, and direct links.
+- Project row: optional image, title, concise problem statement, technology list, and direct links.
 - Footer: contact and social links with no repeated biography.
 
 ## Motion
