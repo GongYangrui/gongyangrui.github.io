@@ -3,20 +3,19 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import BlogDirectory from "../../../components/BlogDirectory.astro";
 import { getPublishedWriting, groupByPrimaryTag } from "../../../lib/content";
 
-const posts = await getPublishedWriting("zh");
+const posts = await getPublishedWriting();
 const groups = groupByPrimaryTag(posts, "其他");
 ---
 
 <BaseLayout
   lang="zh"
-  title="文章 · 龚杨睿"
+  title="博客 · 龚杨锐"
   description="关于后端系统、AI 应用、基础设施和工具的技术记录。"
   canonicalPath="/zh/writing/"
   alternatePath="/writing/"
 >
   <header class="page-heading">
-    <p class="eyebrow">文章与笔记</p>
-    <h1>文章</h1>
+    <h1>博客</h1>
     <p>记录工作与学习中的思考，按主题整理。</p>
   </header>
   {groups.length > 0 ? (

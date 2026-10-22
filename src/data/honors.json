@@ -1,20 +1,26 @@
 [
   {
     "id": "rugby-2024",
-    "order": 1,
     "date": "2024.12",
+    "award": {
+      "en": "Champion",
+      "zh": "冠军"
+    },
     "title": {
-      "en": "Champion, 2nd Hubei Provincial Rugby Championship",
-      "zh": "第二届湖北省英式橄榄球锦标赛冠军"
+      "en": "2nd Hubei Provincial Rugby Championship",
+      "zh": "第二届湖北省英式橄榄球锦标赛"
     }
   },
   {
     "id": "rugby-2023",
-    "order": 2,
     "date": "2023.12",
+    "award": {
+      "en": "Champion",
+      "zh": "冠军"
+    },
     "title": {
-      "en": "Champion, 1st Hubei Provincial Rugby Championship",
-      "zh": "第一届湖北省英式橄榄球锦标赛冠军"
+      "en": "1st Hubei Provincial Rugby Championship",
+      "zh": "第一届湖北省英式橄榄球锦标赛"
     }
   }
 ]

@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import ProjectCard from "../../../components/ProjectCard.astro";
-import { localized } from "../../../i18n";
+import PublicationEntry from "../../../components/PublicationEntry.astro";
 
 const projects = (await getCollection("projects")).sort(
   (a, b) => a.data.order - b.data.order,
@@ -14,19 +14,17 @@ const publications = (await getCollection("publications")).sort(
 
 <BaseLayout
   lang="zh"
-  title="项目 · 龚杨睿"
-  description="龚杨睿的精选项目、工具与研究成果。"
+  title="项目 · 龚杨锐"
+  description="龚杨锐的精选项目、工具与研究成果。"
   canonicalPath="/zh/projects/"
   alternatePath="/projects/"
 >
   <header class="page-heading">
-    <p class="eyebrow">项目</p>
     <h1>项目</h1>
     <p>精选项目、工具与研究成果。</p>
   </header>
 
   <div class="projects-content">
-    <h2>项目</h2>
     <div class="project-list">
       {projects.map((project) => <ProjectCard {project} lang="zh" />)}
     </div>
@@ -36,18 +34,7 @@ const publications = (await getCollection("publications")).sort(
         <h2>论文</h2>
         <div class="publication-list">
           {publications.map((publication) => (
-            <article class="publication-entry">
-              <h3>{publication.data.title}</h3>
-              <p class="publication-authors">{publication.data.authors}</p>
-              <p class="publication-venue">{publication.data.venue}</p>
-              {publication.data.links.length > 0 && (
-                <p class="publication-links">
-                  {publication.data.links.map((link) => (
-                    <a href={link.url} target="_blank" rel="noreferrer">{localized(link.label, "zh")} ↗</a>
-                  ))}
-                </p>
-              )}
-            </article>
+            <PublicationEntry {publication} lang="zh" />
           ))}
         </div>
       </>

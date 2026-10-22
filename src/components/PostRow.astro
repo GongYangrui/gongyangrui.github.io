@@ -15,7 +15,7 @@ const { post, lang, showDescription = true } = Astro.props;
 <article class="post-row">
   <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt, lang)}</time>
   <div class="post-row-body">
-    <h3><a href={writingPath(post.data.lang, post.data.slug)}>{post.data.title}</a></h3>
+    <h3><a href={writingPath(lang, post.data.slug)}>{post.data.title}</a></h3>
     {showDescription && <p>{post.data.description}</p>}
     {post.data.tags.length > 0 && (
       <ul class="post-tags" aria-label={lang === "zh" ? "标签" : "Tags"}>

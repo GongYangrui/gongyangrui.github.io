@@ -5,7 +5,7 @@ export async function GET(context) {
   const posts = await getPublishedWriting();
 
   return rss({
-    title: "Yangrui Gong — Writing",
+    title: "Yangrui Gong — Blogs",
     description: "Technical notes on backend systems, practical AI applications, infrastructure, and tools.",
     site: context.site,
     items: posts.map((post) => ({

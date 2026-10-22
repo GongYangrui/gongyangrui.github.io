@@ -1,13 +1,13 @@
 ---
 import { getCollection } from "astro:content";
 import type { Locale } from "../i18n";
-import { localePath, localized, ui } from "../i18n";
-import { getPublishedWriting, getSiteData } from "../lib/content";
-import EntityMark from "./EntityMark.astro";
+import { localized, ui } from "../i18n";
+import { getSiteData, isOngoing } from "../lib/content";
+import ResumeEntry from "./ResumeEntry.astro";
 import IntroCard from "./IntroCard.astro";
-import ProjectCard from "./ProjectCard.astro";
+import PublicationEntry from "./PublicationEntry.astro";
 import SectionHeading from "./SectionHeading.astro";
-import WritingList from "./WritingList.astro";
+import VisitorMap from "./VisitorMap.astro";
 
 interface Props { lang: Locale }
 const { lang } = Astro.props;
@@ -17,16 +17,12 @@ const [
   { profile, home },
   allExperience,
   allEducation,
-  allProjects,
-  allPosts,
   allPublications,
   allHonors,
 ] = await Promise.all([
   getSiteData(),
   getCollection("experience"),
   getCollection("education"),
-  getCollection("projects"),
-  getPublishedWriting(lang),
   getCollection("publications"),
   getCollection("honors"),
 ]);
@@ -36,36 +32,32 @@ const pickById = <T extends { id: string }>(items: T[], ids: string[]) =>
 
 const selectedExperience = pickById(allExperience, home.data.experience.itemIds);
 const selectedEducation = pickById(allEducation, home.data.education.itemIds);
-const selectedProjects = pickById(allProjects, home.data.projects.itemIds);
 const selectedPublications = pickById(allPublications, home.data.publications.itemIds);
 const selectedHonors = pickById(allHonors, home.data.honors.itemIds);
-const selectedPosts = home.data.writing.itemIds
-  .map((key) => allPosts.find((post) => post.data.translationKey === key))
-  .filter((post): post is (typeof allPosts)[number] => Boolean(post));
+
+const current = selectedEducation
+  .filter((item) => isOngoing(item.data.period))
+  .map((item) => ({
+    title: localized(item.data.program, lang),
+    place: localized(item.data.institution, lang),
+    since: item.data.period.split(/[-–—~]/)[0].trim(),
+  }));
 ---
 
 <div class="home-shell">
-  <IntroCard profile={profile.data} {lang} />
+  <IntroCard profile={profile.data} {current} {lang} />
 
-  <div class="home-content prose">
-    <section class="home-section" id="about" aria-labelledby="about-heading">
-      <SectionHeading id="about-heading" title={t.about} />
-      <p>{localized(profile.data.intro, lang)}</p>
-    </section>
-
+  <div class="home-content">
     {home.data.education.enabled && selectedEducation.length > 0 && (
       <section class="home-section" id="education" aria-labelledby="education-heading">
         <SectionHeading id="education-heading" title={t.education} />
         <div class="entry-list">
           {selectedEducation.map((item) => (
-            <div class="entry-item">
-              <EntityMark label={localized(item.data.institution, lang)} logo={item.data.logo} />
-              <div class="entry-copy">
-                <strong>{localized(item.data.institution, lang)}</strong>
-                <span>{localized(item.data.program, lang)}</span>
-              </div>
-              <time>{item.data.period}</time>
-            </div>
+            <ResumeEntry
+              name={localized(item.data.institution, lang)}
+              subtitle={localized(item.data.program, lang)}
+              period={item.data.period} url={item.data.url} logo={item.data.logo} {lang}
+            />
           ))}
         </div>
       </section>
@@ -76,43 +68,15 @@ const selectedPosts = home.data.writing.itemIds
         <SectionHeading id="experience-heading" title={t.experience} />
         <div class="entry-list">
           {selectedExperience.map((item) => (
-            <div class="entry-item">
-              <EntityMark label={localized(item.data.organization, lang)} logo={item.data.logo} />
-              <div class="entry-copy">
-                <strong>{localized(item.data.organization, lang)}</strong>
-                <span>{localized(item.data.role, lang)}</span>
-                <p>{localized(item.data.description, lang)}</p>
-              </div>
-              <time>{item.data.period}</time>
-            </div>
+            <ResumeEntry
+              name={localized(item.data.organization, lang)}
+              description={item.data.description ? localized(item.data.description, lang) : undefined}
+              mentorName={item.data.mentor ? localized(item.data.mentor.name, lang) : undefined}
+              mentorUrl={item.data.mentor?.url}
+              period={item.data.period} url={item.data.url} logo={item.data.logo} {lang}
+            />
           ))}
         </div>
-      </section>
-    )}
-
-    {home.data.projects.enabled && selectedProjects.length > 0 && (
-      <section class="home-section" id="projects" aria-labelledby="projects-heading">
-        <SectionHeading
-          id="projects-heading"
-          title={t.selectedProjects}
-          actionLabel={t.projects}
-          actionHref={localePath(lang, "/projects/")}
-        />
-        <div class="project-list">
-          {selectedProjects.map((project) => <ProjectCard {project} {lang} />)}
-        </div>
-      </section>
-    )}
-
-    {home.data.writing.enabled && selectedPosts.length > 0 && (
-      <section class="home-section" id="writing" aria-labelledby="writing-heading">
-        <SectionHeading
-          id="writing-heading"
-          title={t.writing}
-          actionLabel={t.allWriting}
-          actionHref={localePath(lang, "/writing/")}
-        />
-        <WritingList posts={selectedPosts} {lang} />
       </section>
     )}
 
@@ -121,18 +85,7 @@ const selectedPosts = home.data.writing.itemIds
         <SectionHeading id="publications-heading" title={t.publications} />
         <div class="publication-list">
           {selectedPublications.map((publication) => (
-            <article class="publication-entry">
-              <h3>{publication.data.title}</h3>
-              <p class="publication-authors">{publication.data.authors}</p>
-              <p class="publication-venue">{publication.data.venue}</p>
-              {publication.data.links.length > 0 && (
-                <p class="publication-links">
-                  {publication.data.links.map((link) => (
-                    <a href={link.url} target="_blank" rel="noreferrer">{localized(link.label, lang)} ↗</a>
-                  ))}
-                </p>
-              )}
-            </article>
+            <PublicationEntry {publication} {lang} />
           ))}
         </div>
       </section>
@@ -145,10 +98,27 @@ const selectedPosts = home.data.writing.itemIds
           {selectedHonors.map((honor) => (
             <div class="honor-item">
               <time>{honor.data.date}</time>
-              <span>{localized(honor.data.title, lang)}</span>
+              <p class="honor-body">
+                {honor.data.award?.[lang] && (
+                  <span class="honor-award">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+                    </svg>
+                    {honor.data.award[lang]}
+                  </span>
+                )}
+                <span class="honor-title">{localized(honor.data.title, lang)}</span>
+              </p>
             </div>
           ))}
         </div>
+      </section>
+    )}
+
+    {home.data.visitors?.enabled && home.data.visitors.mapId && (
+      <section class="home-section home-section--visitors" id="visitors" aria-labelledby="visitors-heading">
+        <SectionHeading id="visitors-heading" title={t.visitors} />
+        <VisitorMap mapId={home.data.visitors.mapId} />
       </section>
     )}
   </div>

@@ -14,11 +14,8 @@ export async function getSiteData() {
   return { profile, home };
 }
 
-export async function getPublishedWriting(lang?: Locale) {
-  const posts = await getCollection(
-    "writing",
-    ({ data }) => !data.draft && (!lang || data.lang === lang),
-  );
+export async function getPublishedWriting() {
+  const posts = await getCollection("writing", ({ data }) => !data.draft);
 
   return posts.sort(
     (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime(),
@@ -38,13 +35,21 @@ export function formatDate(date: Date, lang: Locale) {
   }).format(date);
 }
 
+export function isOngoing(period: string) {
+  return /[-–—~]\s*(present|now|至今)\s*$/i.test(period);
+}
+
+export function localizePeriod(period: string, lang: Locale) {
+  return lang === "zh" ? period.replace(/present/i, "至今") : period;
+}
+
 export function readingMinutes(body: string) {
   const latinWords = body.match(/[A-Za-z0-9]+/g)?.length ?? 0;
   const cjkCharacters = body.match(/[\u3400-\u9fff]/g)?.length ?? 0;
   return Math.max(1, Math.ceil(latinWords / 220 + cjkCharacters / 420));
 }
 
-export function tagSlug(tag: string) {
+function tagSlug(tag: string) {
   const slug = tag
     .normalize("NFKC")
     .toLowerCase()

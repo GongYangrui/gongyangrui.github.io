@@ -1,78 +1,75 @@
 [
   {
     "id": "zhihang-ren-ra",
-    "order": 1,
-    "period": "2025",
-    "role": {
-      "en": "Research Assistant",
-      "zh": "研究助理"
-    },
+    "period": "2025.05-2025.10",
     "organization": {
-      "en": "Working with Zhihang Ren",
-      "zh": "与任志航合作"
+      "en": "THE WHITNEY LABORATORY",
+      "zh": "THE WHITNEY LABORATORY"
     },
     "description": {
-      "en": "Worked on machine learning research and empirical evaluation.",
-      "zh": "参与机器学习研究与实验评估。"
+      "en": "Research Intern, advised by Zhihang Ren.",
+      "zh": "研究助理，由任志航指导。"
     },
-    "category": "research",
-    "url": "https://albuspeter.github.io/"
+    "mentor": {
+      "name": {
+        "en": "Zhihang Ren",
+        "zh": "任志航"
+      },
+      "url": "https://albuspeter.github.io/"
+    },
+    "url": "https://whitneylab.berkeley.edu/"
   },
   {
     "id": "sky-lab",
-    "order": 2,
     "period": "2025.01–2025.05",
-    "role": {
-      "en": "Research Intern",
-      "zh": "研究实习生"
-    },
     "organization": {
       "en": "SKY Lab",
       "zh": "SKY Lab"
     },
     "description": {
-      "en": "Conducted research under the guidance of Prof. Yu Zhang.",
-      "zh": "在张宇教授指导下参与研究工作。"
+      "en": "Research Intern, advised by Prof. Yu Zhang.",
+      "zh": "研究实习生，由张宇教授指导。"
     },
-    "category": "research",
+    "mentor": {
+      "name": {
+        "en": "Yu Zhang",
+        "zh": "张宇"
+      },
+      "url": "https://yuzhimanhua.github.io/"
+    },
     "url": "https://yuzhimanhua.github.io/sky-lab.github.io/"
   },
   {
     "id": "huaxiu-yao-lab",
-    "order": 3,
     "period": "2024.06–2024.08",
-    "role": {
-      "en": "Research Intern",
-      "zh": "研究实习生"
-    },
     "organization": {
-      "en": "Huaxiu Yao's Lab",
+      "en": "AIMING Lab",
       "zh": "姚华秀实验室"
     },
     "description": {
-      "en": "Worked remotely on trustworthy multimodal learning with guidance from Peng Xia.",
-      "zh": "在夏鹏的指导下，远程参与可信多模态学习研究。"
+      "en": "Research Intern, advised by Prof. Huaxiu Yao; project guidance from Peng Xia.",
+      "zh": "研究实习生，由姚华秀教授指导，夏鹏提供项目指导。"
     },
-    "category": "research",
-    "url": "https://www.huaxiuyao.io/"
+    "mentor": {
+      "name": {
+        "en": "Huaxiu Yao",
+        "zh": "姚华秀"
+      },
+      "url": "https://www.huaxiuyao.io/"
+    },
+    "url": "https://www.huaxiuyao.io/aiming-lab"
   },
   {
     "id": "xin-yang-lab",
-    "order": 4,
     "period": "2023.09–2024.06",
-    "role": {
-      "en": "Research Assistant",
-      "zh": "研究助理"
-    },
     "organization": {
-      "en": "Xin Yang's Lab",
-      "zh": "杨欣实验室"
+      "en": "Medical Image Analysis and Augmented Reality Group",
+      "zh": "医学图像分析与增强现实课题组"
     },
     "description": {
-      "en": "Worked on medical image restoration and computer vision in Wuhan, China.",
-      "zh": "在武汉参与医学图像恢复与计算机视觉研究。"
+      "en": "Research Intern, advised by Prof. Xin Yang.",
+      "zh": "研究助理，由杨欣教授指导。"
     },
-    "category": "research",
     "url": "https://sites.google.com/view/xinyang/home"
   }
 ]

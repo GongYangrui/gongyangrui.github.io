@@ -1,0 +1,18 @@
+---
+interface Props {
+  authors: string;
+  name?: string;
+}
+
+const { authors, name = "Yangrui Gong" } = Astro.props;
+const parts = authors.split(name);
+---
+
+<p class="publication-authors">
+  {parts.map((part, index) => (
+    <>
+      {part}
+      {index < parts.length - 1 && <strong>{name}</strong>}
+    </>
+  ))}
+</p>

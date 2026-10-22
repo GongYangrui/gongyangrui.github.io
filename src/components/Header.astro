@@ -5,10 +5,9 @@ import { localePath, ui } from "../i18n";
 interface Props {
   lang: Locale;
   currentPath: string;
-  alternatePath: string;
 }
 
-const { lang, currentPath, alternatePath } = Astro.props;
+const { lang, currentPath } = Astro.props;
 const t = ui[lang];
 const homePath = localePath(lang);
 const projectsPath = localePath(lang, "/projects/");
@@ -26,14 +25,5 @@ function isCurrent(path: string) {
     <a href={homePath} aria-current={isCurrent(homePath) ? "page" : undefined}>{t.home}</a>
     <a href={projectsPath} aria-current={isCurrent(projectsPath) ? "page" : undefined}>{t.projects}</a>
     <a href={writingPath} aria-current={isCurrent(writingPath) ? "page" : undefined}>{t.writing}</a>
-  </nav>
-  <nav class="language-nav" aria-label={lang === "zh" ? "语言" : "Language"}>
-    <a
-      href={alternatePath}
-      lang={lang === "en" ? "zh-CN" : "en"}
-      aria-label={lang === "en" ? "切换到中文" : "Switch to English"}
-    >
-      {lang === "en" ? "中文" : "EN"}
-    </a>
   </nav>
 </header>

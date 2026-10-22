@@ -12,23 +12,30 @@ interface Profile {
   linkedin?: string;
 }
 
+interface Current {
+  title: string;
+  place: string;
+  since: string;
+}
+
 interface Props {
   profile: Profile;
+  current?: Current[];
   lang: Locale;
 }
 
-const { profile, lang } = Astro.props;
+const { profile, current = [], lang } = Astro.props;
 const t = ui[lang];
 ---
 
 <section class="intro" aria-labelledby="intro-title">
-  <div>
-    <p class="eyebrow">{t.personalWebsite}</p>
+  <div class="intro-main">
     <h1 id="intro-title">
-      {profile.name}
-      {profile.nameZh && <span class="chinese-name">{profile.nameZh}</span>}
+      <span class="latin-name">{profile.name}</span>
+      {profile.nameZh && <span class="chinese-name" lang="zh-CN">{profile.nameZh}</span>}
     </h1>
     <p class="intro-subtitle">{localized(profile.headline, lang)}</p>
+    <p class="intro-description">{localized(profile.intro, lang)}</p>
     <div class="contact-links" aria-label={t.contact}>
       <a href={profile.github} target="_blank" rel="noreferrer">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -52,4 +59,16 @@ const t = ui[lang];
       </a>
     </div>
   </div>
+  {current.length > 0 && (
+    <aside class="intro-now" aria-label={t.currently}>
+      <p class="intro-now-label"><span class="now-dot" aria-hidden="true"></span>{t.currently}</p>
+      {current.map((item) => (
+        <div class="intro-now-item">
+          <strong>{item.place}</strong>
+          <span>{item.title}</span>
+          <time>{t.since} {item.since}</time>
+        </div>
+      ))}
+    </aside>
+  )}
 </section>

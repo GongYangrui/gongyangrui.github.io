@@ -2,7 +2,7 @@
   {
     "id": "profile",
     "name": "Yangrui Gong",
-    "nameZh": "龚杨睿",
+    "nameZh": "龚杨锐",
     "headline": {
       "en": "I build backend systems and practical AI applications.",
       "zh": "我关注后端系统与实用的 AI 应用。"
@@ -12,6 +12,7 @@
       "zh": "我关心可靠的系统、真正有用的 AI，也会持续记录实践中的思考与收获。"
     },
     "email": "yangruigong0@gmail.com",
-    "github": "https://github.com/GongYangrui"
+    "github": "https://github.com/GongYangrui",
+    "linkedin": "https://www.linkedin.com/in/yangrui-gong-14a632348"
   }
 ]

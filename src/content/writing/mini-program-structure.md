@@ -1,7 +1,6 @@
 ---
 lang: zh
 slug: mini-program-structure
-translationKey: mini-program-structure
 title: 小程序的项目结构
 description: 介绍微信小程序项目中的主要目录、入口文件和配置文件。
 publishedAt: 2025-02-23
@@ -9,7 +8,6 @@ tags:
   - 小程序
   - 前端
 draft: false
-featured: false
 ---
 
 小程序项目通常由页面、工具模块、入口文件和配置文件组成：

@@ -1,0 +1,26 @@
+---
+interface Props {
+  mapId: string;
+}
+
+const { mapId } = Astro.props;
+
+// Colors follow the site palette (hex without #): co = ocean, cl = land,
+// ct = text, cmo = earlier visitors, cmn = recent visitors.
+const params = new URLSearchParams({
+  d: mapId,
+  w: "a",
+  t: "m",
+  co: "ffffff",
+  cl: "e7dfd8",
+  ct: "6b6059",
+  cmo: "b9501a",
+  cmn: "9c4214",
+});
+const src = `https://mapmyvisitors.com/map.js?${params}`;
+---
+
+<div class="visitor-map">
+  <!-- The widget inserts itself right after this script; it must keep this id. -->
+  <script is:inline async type="text/javascript" id="mapmyvisitors" src={src}></script>
+</div>

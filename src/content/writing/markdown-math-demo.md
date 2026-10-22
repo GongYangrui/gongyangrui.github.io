@@ -1,7 +1,6 @@
 ---
 lang: zh
 slug: markdown-math-demo
-translationKey: markdown-math-demo
 title: Markdown 与数学公式
 description: 展示本站如何渲染 Markdown、代码块、表格与 LaTeX 风格数学公式的参考文章。
 publishedAt: 2026-10-21
@@ -9,7 +8,6 @@ tags:
   - 笔记
   - 数学
 draft: false
-featured: false
 ---
 
 这是一篇渲染参考文章，用来检查站点支持的 Markdown 元素和数学公式语法。

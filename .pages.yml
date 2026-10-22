@@ -54,18 +54,6 @@ content:
         fields:
           - { name: enabled, label: Show module, type: boolean, default: true }
           - { name: itemIds, label: Item IDs in display order, type: string, list: true }
-      - name: projects
-        label: Projects module
-        type: object
-        fields:
-          - { name: enabled, label: Show module, type: boolean, default: false }
-          - { name: itemIds, label: Item IDs in display order, type: string, list: true }
-      - name: writing
-        label: Writing module
-        type: object
-        fields:
-          - { name: enabled, label: Show module, type: boolean, default: true }
-          - { name: itemIds, label: Translation keys in display order, type: string, list: true }
       - name: publications
         label: Publications module
         type: object
@@ -78,6 +66,12 @@ content:
         fields:
           - { name: enabled, label: Show module, type: boolean, default: true }
           - { name: itemIds, label: Item IDs in display order, type: string, list: true }
+      - name: visitors
+        label: Visitor map
+        type: object
+        fields:
+          - { name: enabled, label: Show module, type: boolean, default: true }
+          - { name: mapId, label: MapMyVisitors ID (the d= value in the embed code), type: string }
 
   - name: experience
     label: Experience
@@ -87,14 +81,7 @@ content:
     list: true
     fields:
       - { name: id, label: Stable ID, type: string, required: true }
-      - { name: order, label: Display order, type: number, required: true }
       - { name: period, label: Date, type: string, required: true }
-      - name: role
-        label: Role
-        type: object
-        fields:
-          - { name: en, label: English, type: string, required: true }
-          - { name: zh, label: 中文, type: string, required: true }
       - name: organization
         label: Organization
         type: object
@@ -105,13 +92,19 @@ content:
         label: Description
         type: object
         fields:
-          - { name: en, label: English, type: text, required: true }
-          - { name: zh, label: 中文, type: text, required: true }
-      - name: category
-        label: Category
-        type: select
-        options:
-          values: [engineering, research]
+          - { name: en, label: English, type: text }
+          - { name: zh, label: 中文, type: text }
+      - name: mentor
+        label: Mentor link
+        type: object
+        fields:
+          - name: name
+            label: Name
+            type: object
+            fields:
+              - { name: en, label: English, type: string }
+              - { name: zh, label: 中文, type: string }
+          - { name: url, label: URL, type: string }
       - { name: url, label: URL, type: string }
       - name: logo
         label: Organization logo
@@ -133,7 +126,6 @@ content:
     list: true
     fields:
       - { name: id, label: Stable ID, type: string, required: true }
-      - { name: order, label: Display order, type: number, required: true }
       - { name: period, label: Date, type: string, required: true }
       - name: institution
         label: Institution
@@ -234,45 +226,24 @@ content:
     list: true
     fields:
       - { name: id, label: Stable ID, type: string, required: true }
-      - { name: order, label: Display order, type: number, required: true }
       - { name: date, label: Date, type: string, required: true }
+      - name: award
+        label: Award (optional, e.g. Champion)
+        type: object
+        fields:
+          - { name: en, label: English, type: string }
+          - { name: zh, label: 中文, type: string }
       - name: title
-        label: Title
+        label: Event
         type: object
         fields:
           - { name: en, label: English, type: string, required: true }
           - { name: zh, label: 中文, type: string, required: true }
 
-  - name: writing-en
-    label: Writing · English
+  - name: writing
+    label: Blogs
     type: collection
-    path: src/content/writing/en
-    format: yaml-frontmatter
-    filename: "{primary}.md"
-    view:
-      fields: [title, publishedAt, draft]
-      primary: title
-      sort: [publishedAt, title]
-      default:
-        sort: publishedAt
-        order: desc
-    fields: &writing_fields
-      - { name: lang, label: Language, type: string, default: en, required: true }
-      - { name: slug, label: URL slug, type: string, required: true }
-      - { name: translationKey, label: Translation key, type: string, required: true }
-      - { name: title, label: Title, type: string, required: true }
-      - { name: description, label: Summary, type: text, required: true }
-      - { name: publishedAt, label: Published, type: date, required: true }
-      - { name: updatedAt, label: Updated, type: date }
-      - { name: tags, label: Tags, type: string, list: true }
-      - { name: draft, label: Draft, type: boolean, default: true }
-      - { name: featured, label: Featured, type: boolean, default: false }
-      - { name: body, label: Body, type: rich-text, required: true }
-
-  - name: writing-zh
-    label: Writing · 中文
-    type: collection
-    path: src/content/writing/zh
+    path: src/content/writing
     format: yaml-frontmatter
     filename: "{primary}.md"
     view:
@@ -283,14 +254,19 @@ content:
         sort: publishedAt
         order: desc
     fields:
-      - { name: lang, label: Language, type: string, default: zh, required: true }
+      - name: lang
+        label: Body language
+        type: select
+        default: zh
+        options:
+          values:
+            - { value: zh, label: 中文 }
+            - { value: en, label: English }
       - { name: slug, label: URL slug, type: string, required: true }
-      - { name: translationKey, label: Translation key, type: string, required: true }
       - { name: title, label: Title, type: string, required: true }
       - { name: description, label: Summary, type: text, required: true }
       - { name: publishedAt, label: Published, type: date, required: true }
       - { name: updatedAt, label: Updated, type: date }
       - { name: tags, label: Tags, type: string, list: true }
       - { name: draft, label: Draft, type: boolean, default: true }
-      - { name: featured, label: Featured, type: boolean, default: false }
       - { name: body, label: Body, type: rich-text, required: true }

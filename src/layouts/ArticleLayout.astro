@@ -2,30 +2,32 @@
 import type { CollectionEntry } from "astro:content";
 import "katex/dist/katex.min.css";
 import BaseLayout from "./BaseLayout.astro";
-import { formatDate, readingMinutes } from "../lib/content";
+import { formatDate, readingMinutes, writingPath } from "../lib/content";
 import { ui, type Locale } from "../i18n";
 
 interface Props {
   post: CollectionEntry<"writing">;
   headings: { depth: number; slug: string; text: string }[];
-  alternatePath: string;
-  hasTranslation: boolean;
+  // Language of the surrounding site; the post body keeps its own language.
+  lang: Locale;
 }
 
-const { post, headings, alternatePath, hasTranslation } = Astro.props;
-const lang = post.data.lang as Locale;
+const { post, headings, lang } = Astro.props;
 const t = ui[lang];
+const bodyLang = post.data.lang === "zh" ? "zh-CN" : "en";
 const minutes = readingMinutes(post.body ?? "");
 const visibleHeadings = headings.filter((heading) => heading.depth === 2);
 const hasToc = visibleHeadings.length > 1;
 const writingIndex = lang === "zh" ? "/zh/writing/" : "/writing/";
+const canonicalPath = writingPath(post.data.lang, post.data.slug);
+const alternatePath = writingPath(lang === "zh" ? "en" : "zh", post.data.slug);
 ---
 
 <BaseLayout
   {lang}
   title={`${post.data.title} · Yangrui Gong`}
   description={post.data.description}
-  canonicalPath={lang === "zh" ? `/zh/writing/${post.data.slug}/` : `/writing/${post.data.slug}/`}
+  {canonicalPath}
   {alternatePath}
   type="article"
 >
@@ -48,24 +50,21 @@ const writingIndex = lang === "zh" ? "/zh/writing/" : "/writing/";
     <div class="article-body">
       <header class="article-heading">
         <a class="back-link" href={writingIndex}>← {t.backToWriting}</a>
-        <h1>{post.data.title}</h1>
-        <p class="article-deck">{post.data.description}</p>
+        <h1 lang={bodyLang}>{post.data.title}</h1>
+        <p class="article-deck" lang={bodyLang}>{post.data.description}</p>
         <div class="article-meta">
           <time datetime={post.data.publishedAt.toISOString()}>{t.published} {formatDate(post.data.publishedAt, lang)}</time>
           {post.data.updatedAt && <span>{t.updated} {formatDate(post.data.updatedAt, lang)}</span>}
           <span>{minutes} {t.minuteRead}</span>
         </div>
         {post.data.tags.length > 0 && (
-          <ul class="post-tags" aria-label={lang === "zh" ? "标签" : "Tags"}>
+          <ul class="post-tags" aria-label={lang === "zh" ? "标签" : "Tags"} lang={bodyLang}>
             {post.data.tags.map((tag) => <li>{tag}</li>)}
           </ul>
         )}
-        {!hasTranslation && (
-          <a class="translation-note" href={alternatePath}>{t.noTranslation}</a>
-        )}
       </header>
 
-      <div class="prose article-prose">
+      <div class="prose article-prose" lang={bodyLang}>
         <slot />
       </div>
     </div>

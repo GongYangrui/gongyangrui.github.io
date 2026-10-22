@@ -3,20 +3,19 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogDirectory from "../../components/BlogDirectory.astro";
 import { getPublishedWriting, groupByPrimaryTag } from "../../lib/content";
 
-const posts = await getPublishedWriting("en");
+const posts = await getPublishedWriting();
 const groups = groupByPrimaryTag(posts, "Other");
 ---
 
 <BaseLayout
   lang="en"
-  title="Writing · Yangrui Gong"
+  title="Blogs · Yangrui Gong"
   description="Notes on backend systems, practical AI applications, infrastructure, and tools."
   canonicalPath="/writing/"
   alternatePath="/zh/writing/"
 >
   <header class="page-heading">
-    <p class="eyebrow">Writing &amp; notes</p>
-    <h1>Writing</h1>
+    <h1>Blogs</h1>
     <p>Notes from my work and study, grouped by topic.</p>
   </header>
   {groups.length > 0 ? (

@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { Locale } from "../i18n";
+import { localized } from "../i18n";
+import PublicationAuthors from "./PublicationAuthors.astro";
+
+interface Props {
+  publication: CollectionEntry<"publications">;
+  lang: Locale;
+}
+
+const { publication, lang } = Astro.props;
+const { data } = publication;
+---
+
+<article class="publication-entry">
+  <h3>{data.title}</h3>
+  <PublicationAuthors authors={data.authors} />
+  <p class="publication-venue">{data.venue}</p>
+  {data.links.length > 0 && (
+    <p class="publication-links">
+      {data.links.map((link) => (
+        <a href={link.url} target="_blank" rel="noreferrer">{localized(link.label, lang)} ↗</a>
+      ))}
+    </p>
+  )}
+</article>

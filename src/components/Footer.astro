@@ -1,16 +1,10 @@
 ---
-import type { Locale } from "../i18n";
 import { getEntry } from "astro:content";
-import { ui } from "../i18n";
 
-interface Props { lang: Locale }
-const { lang } = Astro.props;
 const profile = await getEntry("profile", "profile");
 if (!profile) throw new Error("Profile is missing.");
-const t = ui[lang];
 ---
 
 <footer class="site-footer">
   <span>© {new Date().getFullYear()} {profile.data.name}</span>
-  <span>{t.footerTagline}</span>
 </footer>

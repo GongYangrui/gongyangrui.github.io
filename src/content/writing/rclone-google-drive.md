@@ -1,7 +1,6 @@
 ---
 lang: zh
 slug: rclone-google-drive
-translationKey: rclone-google-drive
 title: 使用 Rclone 连接 Google Drive
 description: 在没有 sudo 权限的服务器上安装 Rclone、完成 Google Drive 授权并上传文件的实践记录。
 publishedAt: 2025-05-22
@@ -10,7 +9,6 @@ tags:
   - Google Drive
   - Linux
 draft: false
-featured: true
 ---
 
 远程连接服务器时，直接通过 SSH 或 SFTP 下载大文件可能很慢。我当时可以比较稳定地访问 Google Drive，因此尝试用 Rclone 把服务器上的文件先上传到云盘，再从本地下载。

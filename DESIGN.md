@@ -2,56 +2,43 @@
 
 ## Direction
 
-A quiet academic/engineering personal site inspired by the layout of Ruoke Zhang's homepage. The page is a single 900px column on a soft blue-lavender gradient: a short profile card, then resume-style lists and understated cards. It must never look like a SaaS landing page, a dashboard, or a template portfolio.
+A bilingual, resume-led homepage: intro, education, experience, publications and honors. Projects and blogs live on their own pages, not on the homepage. Cool paper, ink type, a condensed display face for the name, and hairline rows with a shared mono date column.
 
-## Theme
+## Palette
 
-Light only. No dark-mode variant is maintained. The palette is intentionally narrow and the page relies on whitespace and one-pixel rules rather than layered decoration.
+- Paper (background): `#FAF8F6`
+- Surface (logo tiles, screenshot frames, code blocks): `#FFFFFF`
+- Ink: `#221B17`
+- Muted text: `#6B6059`
+- Rules: `#E7DFD8`
+- Inline code and table headers: `#F3ECE6`; selection: `#F6D8C3`
+- Award badge: `#FBE6D8` background with `#9C4214` text
+- Accent (links, focus, "Currently" panel, author highlight): `#B9501A`, a burnt orange that keeps 4.7:1 contrast on paper
 
-## Color
-
-- Ink: `#101827`
-- Muted ink: `#53657a`
-- Rule: `#d8e5f0`
-- Accent: `#1769aa`
-- Page background: `#f5f8fd` with soft radial gradients
-- Card surface: translucent white with a very light border and shadow
-
-Accent color is used for eyebrows, links, dates, and small status marks. It is never the only way to communicate state.
+Light only. No gradients or shadows.
 
 ## Typography
 
-- One system sans-serif stack, including `Noto Sans SC` and `PingFang SC` for Chinese.
-- No external webfonts.
-- Body: 16px with a 1.7 line height.
-- Page titles: `clamp(36px, 6vw, 52px)`.
-- Section headings: 22px with a bottom rule.
-- Prose measure: 720px inside the 900px shell.
+- Display: Bricolage Grotesque (variable, self-hosted via Fontsource), weight 650–700, `font-stretch` 84–90%. Used for the name, page titles and section headings only.
+- Body: system sans-serif with PingFang SC / Microsoft YaHei for Chinese, 16px / 1.7.
+- Utility: IBM Plex Mono 400/500 for dates, periods, venues, tech stacks and tags.
+- Fonts are bundled locally; never load Google Fonts (unreliable from mainland China).
 
 ## Layout
 
-- Shell: `min(100% - 48px, 900px)`, and `min(100% - 32px, 900px)` below 640px.
-- Header: site name, Home / Projects / Writing, language switch; wraps to two rows on small screens.
-- Home: profile card, then About, Education, Experience, Selected Projects, Writing, Publications, Honors.
-- Resume rows: 70px mark, flexible copy, right-aligned date. They become two columns below 640px with the date under the copy.
-- Projects: optional 260px preview plus details; image-less projects use a single full-width text card.
-- Blog index: 160px sticky category nav plus post rows; the nav becomes an inline row below 760px.
-- Article: 190px sticky table of contents plus a 760px reading card; the table of contents moves above the article below 760px.
-- Footer: copyright and one tagline.
+- Shell: maximum 1040px, 24px gutters, 16px on phones. Article measure 720px; table of contents becomes inline below 760px.
+- Intro: large condensed name with Chinese name beside it, headline, description, contact links. A "Currently" panel on the right is derived from education entries whose period ends in `Present`.
+- Education, experience, honors and blog rows share one grid: a 150px mono date column, then content. Below 640px the date sits above the content. `Present` displays as 至今 in Chinese.
+- Publications, projects and blog rows are hairline-separated. Every project uses the same row with no featured treatment: text on the left, an optional screenshot on the right (380px, 16:10, cropped from the top, white frame with a 1px rule and 6px corners). Below 760px the screenshot moves above the text. Projects without a screenshot let the text span the full width.
+- Project tech stacks use the same mono tag style as blog tags.
+- Blogs are not translated. Both `/writing/` and `/zh/writing/` list every post; each post renders inside both site languages, with the canonical URL following its `lang`.
+- Visitor map (MapMyVisitors) is the last homepage section, centered at a maximum width of 640px inside a white frame with a 1px rule and 6px corners. Its colors are set through the embed parameters in `VisitorMap.astro` (ocean `ffffff`, land `e7dfd8`, text `6b6059`, visitors `b9501a`, recent `9c4214`) and its text uses the mono face. If the third-party script is blocked or fails, the whole section stays hidden.
+- Sections are 80px apart (64px on phones). Keep homepage selections and order in structured data.
 
-## Components
+## Education and experience logos
 
-- Profile card with eyebrow, English and Chinese name, headline, and contact pills.
-- Section heading with optional “all items” link.
-- Entity mark: optional logo inside a small bordered tile, otherwise up to two initials.
-- Post row: date, title, summary, and tags.
-- Project card / publication card with small link pills.
-- Article prose card with headings, code, tables, quotes, images, footnotes, and KaTeX formulas.
+Logos keep original color and aspect ratio with `object-fit: contain` inside a 48px white tile with a 1px rule and 8px corners (42px on phones); the tile evens out logos that ship with white backgrounds. Never crop into circles or generate initials. Upload real files to CMS Media (`public/media`) and select them in the entry's logo field; empty logo objects normalize to no logo. Missing translated alt text falls back to the institution name. Local paths are checked by `npm run verify`.
 
-## Motion
+## Accessibility and motion
 
-Only 160–200ms color, shadow, transform, and focus transitions. No entrance animations. All motion collapses under `prefers-reduced-motion`.
-
-## Accessibility
-
-Meet WCAG 2.2 AA, preserve browser zoom, provide a skip link, use semantic landmarks and headings, keep focus visible, maintain 44px touch targets, and never rely on color alone. Long code, tables, and formulas scroll inside their own containers so the page never scrolls horizontally.
+No entrance animation or decorative motion; only link, hover and focus feedback. Respect reduced-motion preferences. Keep visible focus, semantic headings and the skip link. Long code, tables and math scroll inside their own containers. Test 375px, 768px, 1440px and 200% zoom.

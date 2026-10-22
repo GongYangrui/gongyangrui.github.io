@@ -11,10 +11,16 @@ const link = z.object({
   url: z.string().url(),
 });
 
-const visual = z.object({
-  src: z.string().min(1),
-  alt: localizedText,
-});
+
+// CMS may save an empty optional image object after an image is removed.
+const optionalImage = z.preprocess((value) => {
+  if (!value || typeof value !== "object" || !("src" in value) ||
+      typeof value.src !== "string" || !value.src.trim()) return undefined;
+  return value;
+}, z.object({
+  src: z.string().trim().min(1),
+  alt: z.object({ en: z.string().optional(), zh: z.string().optional() }).nullish(),
+}).optional());
 
 const profile = defineCollection({
   loader: file("src/data/profile.json"),
@@ -34,36 +40,36 @@ const home = defineCollection({
   schema: z.object({
     experience: z.object({ enabled: z.boolean(), itemIds: z.array(z.string()) }),
     education: z.object({ enabled: z.boolean(), itemIds: z.array(z.string()) }),
-    projects: z.object({ enabled: z.boolean(), itemIds: z.array(z.string()) }),
-    writing: z.object({ enabled: z.boolean(), itemIds: z.array(z.string()) }),
     publications: z.object({ enabled: z.boolean(), itemIds: z.array(z.string()) }),
     honors: z.object({ enabled: z.boolean(), itemIds: z.array(z.string()) }),
+    // MapMyVisitors widget; mapId is the "d" value from the embed code.
+    visitors: z.object({ enabled: z.boolean(), mapId: z.string() }).optional(),
   }),
 });
 
 const experience = defineCollection({
   loader: file("src/data/experience.json"),
   schema: z.object({
-    order: z.number().int().nonnegative(),
     period: z.string(),
-    role: localizedText,
     organization: localizedText,
-    description: localizedText,
-    category: z.enum(["engineering", "research"]),
+    description: localizedText.optional(),
+    mentor: z.object({
+      name: localizedText,
+      url: z.string().url(),
+    }).optional(),
     url: z.string().url().optional(),
-    logo: visual.optional(),
+    logo: optionalImage,
   }),
 });
 
 const education = defineCollection({
   loader: file("src/data/education.json"),
   schema: z.object({
-    order: z.number().int().nonnegative(),
     period: z.string(),
     institution: localizedText,
     program: localizedText,
     url: z.string().url().optional(),
-    logo: visual.optional(),
+    logo: optionalImage,
   }),
 });
 
@@ -75,7 +81,7 @@ const projects = defineCollection({
     summary: localizedText,
     technologies: z.array(z.string()),
     links: z.array(link),
-    image: visual.optional(),
+    image: optionalImage,
   }),
 });
 
@@ -93,8 +99,9 @@ const publications = defineCollection({
 const honors = defineCollection({
   loader: file("src/data/honors.json"),
   schema: z.object({
-    order: z.number().int().nonnegative(),
     date: z.string(),
+    // Optional result such as "Champion"; shown as a badge before the title.
+    award: localizedText.optional(),
     title: localizedText,
   }),
 });
@@ -106,16 +113,15 @@ const writing = defineCollection({
     generateId: ({ entry }) => entry.replace(/\.(md|mdx)$/, ""),
   }),
   schema: z.object({
-    lang: z.enum(["en", "zh"]),
+    // Language of the post body; blogs are not translated, so each post has one version.
+    lang: z.enum(["en", "zh"]).default("zh"),
     slug: z.string(),
-    translationKey: z.string(),
     title: z.string(),
     description: z.string(),
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
-    featured: z.boolean().default(false),
   }),
 });
 

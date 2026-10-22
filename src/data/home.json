@@ -13,35 +13,17 @@
     "education": {
       "enabled": true,
       "itemIds": [
+        "usc-mscs",
         "hust",
         "uw-madison",
         "ccnu-no1"
-      ]
-    },
-    "projects": {
-      "enabled": true,
-      "itemIds": [
-        "algorecall",
-        "sky-take-out",
-        "heima-dianping"
-      ]
-    },
-    "writing": {
-      "enabled": true,
-      "itemIds": [
-        "markdown-math-demo",
-        "rclone-google-drive",
-        "mini-program-structure",
-        "hello-world"
       ]
     },
     "publications": {
       "enabled": true,
       "itemIds": [
         "cares",
-        "masked-snake-attention",
-        "zero-shot-multilabel",
-        "raps-plus"
+        "masked-snake-attention"
       ]
     },
     "honors": {
@@ -50,6 +32,10 @@
         "rugby-2024",
         "rugby-2023"
       ]
+    },
+    "visitors": {
+      "enabled": true,
+      "mapId": "Ta6NmLqn1UUFZSKDOCzDok6tdolerYzxQnGOyxhwmWM"
     }
   }
 ]

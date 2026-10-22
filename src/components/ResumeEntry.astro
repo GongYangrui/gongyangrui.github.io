@@ -1,0 +1,47 @@
+---
+import type { Locale } from "../i18n";
+import { localizePeriod } from "../lib/content";
+interface Props {
+  name: string;
+  subtitle?: string;
+  description?: string;
+  mentorName?: string;
+  mentorUrl?: string;
+  period: string;
+  url?: string;
+  logo?: { src: string; alt?: { en?: string; zh?: string } | null };
+  lang: Locale;
+}
+const { name, subtitle, description, mentorName, mentorUrl, period, url, logo, lang } = Astro.props;
+const mentor = mentorName && mentorUrl ? { name: mentorName, url: mentorUrl } : null;
+const descriptionParts = mentor && description ? description.split(mentor.name) : [];
+const hasLogo = Boolean(logo?.src.trim());
+---
+<div class="entry-item">
+  <time class="entry-period">{localizePeriod(period, lang)}</time>
+  <div class="entry-body">
+    {hasLogo && logo && (
+      <span class="entry-logo">
+        <img src={logo.src} alt={logo.alt?.[lang]?.trim() || name} width="36" height="36" loading="lazy" decoding="async" />
+      </span>
+    )}
+    <div class="entry-copy">
+      <strong>{url ? <a href={url} target="_blank" rel="noreferrer">{name}</a> : name}</strong>
+      {subtitle && <span>{subtitle}</span>}
+      {description && (
+        <p>
+          {mentor
+            ? descriptionParts.map((part, index) => (
+                <>
+                  {part}
+                  {index < descriptionParts.length - 1 && (
+                    <a href={mentor.url} target="_blank" rel="noreferrer">{mentor.name}</a>
+                  )}
+                </>
+              ))
+            : description}
+        </p>
+      )}
+    </div>
+  </div>
+</div>

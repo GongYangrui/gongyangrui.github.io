@@ -1,6 +1,9 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import "@fontsource-variable/bricolage-grotesque/standard.css";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/ibm-plex-mono/500.css";
 import "../styles/global.css";
 import type { Locale } from "../i18n";
 import { ui } from "../i18n";
@@ -36,7 +39,7 @@ const alternate = new URL(alternatePath, Astro.site);
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="color-scheme" content="light" />
-    <meta name="theme-color" content="#f5f8fd" />
+    <meta name="theme-color" content="#FAF8F6" />
     <meta property="og:type" content={type} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -46,18 +49,18 @@ const alternate = new URL(alternatePath, Astro.site);
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={alternateLang === "zh" ? "zh-CN" : "en"} href={alternate} />
     <link rel="alternate" hreflang="x-default" href={new URL(canonicalPath.replace(/^\/zh/, "") || "/", Astro.site)} />
-    <link rel="alternate" type="application/rss+xml" title="Yangrui Gong — Writing" href={new URL("/rss.xml", Astro.site)} />
+    <link rel="alternate" type="application/rss+xml" title="Yangrui Gong — Blogs" href={new URL("/rss.xml", Astro.site)} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
   </head>
   <body>
     <a class="skip-link" href="#main-content">{ui[lang].skip}</a>
     <div class="site-shell">
-      <Header {lang} currentPath={Astro.url.pathname} {alternatePath} />
+      <Header {lang} currentPath={Astro.url.pathname} />
       <main id="main-content">
         <slot />
       </main>
-      <Footer {lang} />
+      <Footer />
     </div>
   </body>
 </html>

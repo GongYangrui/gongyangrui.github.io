@@ -1,8 +1,27 @@
 [
   {
+    "id": "usc-mscs",
+    "period": "2026.08–Present",
+    "institution": {
+      "en": "University of Southern California",
+      "zh": "南加州大学"
+    },
+    "program": {
+      "en": "M.S. in Computer Science – Scientists and Engineers",
+      "zh": "计算机科学硕士（科学家与工程师方向）"
+    },
+    "logo": {
+      "src": "/media/education/usc.png",
+      "alt": {
+        "en": "University of Southern California logo",
+        "zh": "南加州大学校徽"
+      }
+    },
+    "url": "https://viterbigradadmission.usc.edu/programs/masters/msprograms/computer-science/ms-cs-scientists-engineers/"
+  },
+  {
     "id": "hust",
-    "order": 1,
-    "period": "2022–2026",
+    "period": "2022.09–2026.06",
     "institution": {
       "en": "Huazhong University of Science and Technology",
       "zh": "华中科技大学"
@@ -11,26 +30,38 @@
       "en": "B.E. in Electronic and Information Engineering",
       "zh": "电子信息工程，工学学士"
     },
+    "logo": {
+      "src": "/media/education/hust.png",
+      "alt": {
+        "en": "Huazhong University of Science and Technology logo",
+        "zh": "华中科技大学校徽"
+      }
+    },
     "url": "https://english.hust.edu.cn/"
   },
   {
     "id": "uw-madison",
-    "order": 2,
     "period": "2025.01–2025.05",
     "institution": {
       "en": "University of Wisconsin–Madison",
       "zh": "威斯康星大学麦迪逊分校"
     },
     "program": {
-      "en": "Visiting Student",
-      "zh": "访问学生"
+      "en": "Visiting International Student Program",
+      "zh": "访问学生项目"
+    },
+    "logo": {
+      "src": "/media/education/wisc.png",
+      "alt": {
+        "en": "University of Wisconsin–Madison logo",
+        "zh": "威斯康星大学麦迪逊分校校徽"
+      }
     },
     "url": "https://www.wisc.edu/"
   },
   {
     "id": "ccnu-no1",
-    "order": 3,
-    "period": "2019–2022",
+    "period": "2019.09–2022.06",
     "institution": {
       "en": "No. 1 Middle School Affiliated to Central China Normal University",
       "zh": "华中师范大学第一附属中学"
@@ -38,6 +69,13 @@
     "program": {
       "en": "High School",
       "zh": "高中"
+    },
+    "logo": {
+      "src": "/media/education/hsyfz.png",
+      "alt": {
+        "en": "No. 1 Middle School Affiliated to Central China Normal University logo",
+        "zh": "华中师范大学第一附属中学校徽"
+      }
     },
     "url": "https://en.wikipedia.org/wiki/No.1_Middle_School_Affiliated_to_Central_China_Normal_University"
   }
