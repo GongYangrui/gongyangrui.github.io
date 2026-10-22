@@ -1,0 +1,17 @@
+[
+  {
+    "id": "home",
+    "experience": {
+      "enabled": true,
+      "itemIds": ["zhihang-ren-ra", "sky-lab", "huaxiu-yao-lab"]
+    },
+    "projects": {
+      "enabled": false,
+      "itemIds": ["algorecall"]
+    },
+    "writing": {
+      "enabled": true,
+      "itemIds": ["rclone-google-drive", "mini-program-structure", "hello-world"]
+    }
+  }
+]

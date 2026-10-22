@@ -1,0 +1,27 @@
+{
+  "name": "gongyangrui-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "build:pdf": "node scripts/generate-resume-pdf.mjs",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "check:links": "node scripts/check-links.mjs",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "verify": "npm run check && npm run build && npm run build:pdf && npm run check:links"
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.12",
+    "@astrojs/mdx": "6.0.3",
+    "@astrojs/rss": "4.0.19",
+    "@astrojs/sitemap": "3.7.4",
+    "@tailwindcss/vite": "4.1.18",
+    "astro": "6.4.8",
+    "daisyui": "5.7.50",
+    "playwright": "1.64.1",
+    "sharp": "0.35.5",
+    "tailwindcss": "4.1.18",
+    "typescript": "6.0.3"
+  }
+}

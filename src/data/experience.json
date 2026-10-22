@@ -1,0 +1,78 @@
+[
+  {
+    "id": "zhihang-ren-ra",
+    "order": 1,
+    "period": "2025",
+    "role": {
+      "en": "Research Assistant",
+      "zh": "研究助理"
+    },
+    "organization": {
+      "en": "Working with Zhihang Ren",
+      "zh": "与任志航合作"
+    },
+    "description": {
+      "en": "Worked on machine learning research and empirical evaluation.",
+      "zh": "参与机器学习研究与实验评估。"
+    },
+    "category": "research",
+    "url": "https://albuspeter.github.io/"
+  },
+  {
+    "id": "sky-lab",
+    "order": 2,
+    "period": "2025.01–2025.05",
+    "role": {
+      "en": "Research Intern",
+      "zh": "研究实习生"
+    },
+    "organization": {
+      "en": "SKY Lab",
+      "zh": "SKY Lab"
+    },
+    "description": {
+      "en": "Conducted research under the guidance of Prof. Yu Zhang.",
+      "zh": "在张宇教授指导下参与研究工作。"
+    },
+    "category": "research",
+    "url": "https://yuzhimanhua.github.io/sky-lab.github.io/"
+  },
+  {
+    "id": "huaxiu-yao-lab",
+    "order": 3,
+    "period": "2024.06–2024.08",
+    "role": {
+      "en": "Research Intern",
+      "zh": "研究实习生"
+    },
+    "organization": {
+      "en": "Huaxiu Yao's Lab",
+      "zh": "姚华秀实验室"
+    },
+    "description": {
+      "en": "Worked remotely on trustworthy multimodal learning with guidance from Peng Xia.",
+      "zh": "在夏鹏的指导下，远程参与可信多模态学习研究。"
+    },
+    "category": "research",
+    "url": "https://www.huaxiuyao.io/"
+  },
+  {
+    "id": "xin-yang-lab",
+    "order": 4,
+    "period": "2023.09–2024.06",
+    "role": {
+      "en": "Research Assistant",
+      "zh": "研究助理"
+    },
+    "organization": {
+      "en": "Xin Yang's Lab",
+      "zh": "杨欣实验室"
+    },
+    "description": {
+      "en": "Worked on medical image restoration and computer vision in Wuhan, China.",
+      "zh": "在武汉参与医学图像恢复与计算机视觉研究。"
+    },
+    "category": "research",
+    "url": "https://sites.google.com/view/xinyang/home"
+  }
+]

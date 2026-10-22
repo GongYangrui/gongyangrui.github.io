@@ -1,0 +1,44 @@
+[
+  {
+    "id": "hust",
+    "order": 1,
+    "period": "2022–2026",
+    "institution": {
+      "en": "Huazhong University of Science and Technology",
+      "zh": "华中科技大学"
+    },
+    "program": {
+      "en": "B.E. in Electronic and Information Engineering",
+      "zh": "电子信息工程，工学学士"
+    },
+    "url": "https://english.hust.edu.cn/"
+  },
+  {
+    "id": "uw-madison",
+    "order": 2,
+    "period": "2025.01–2025.05",
+    "institution": {
+      "en": "University of Wisconsin–Madison",
+      "zh": "威斯康星大学麦迪逊分校"
+    },
+    "program": {
+      "en": "Visiting Student",
+      "zh": "访问学生"
+    },
+    "url": "https://www.wisc.edu/"
+  },
+  {
+    "id": "ccnu-no1",
+    "order": 3,
+    "period": "2019–2022",
+    "institution": {
+      "en": "No. 1 Middle School Affiliated to Central China Normal University",
+      "zh": "华中师范大学第一附属中学"
+    },
+    "program": {
+      "en": "High School",
+      "zh": "高中"
+    },
+    "url": "https://en.wikipedia.org/wiki/No.1_Middle_School_Affiliated_to_Central_China_Normal_University"
+  }
+]

@@ -1,0 +1,39 @@
+---
+import type { Locale } from "../i18n";
+import { localePath, ui } from "../i18n";
+
+interface Props {
+  lang: Locale;
+  currentPath: string;
+  alternatePath: string;
+}
+
+const { lang, currentPath, alternatePath } = Astro.props;
+const t = ui[lang];
+const homePath = localePath(lang);
+const writingPath = localePath(lang, "/writing/");
+const resumePath = localePath(lang, "/resume/");
+
+function isCurrent(path: string) {
+  return currentPath === path || (path !== homePath && currentPath.startsWith(path));
+}
+---
+
+<header class="site-header">
+  <nav class="navbar site-nav" aria-label={lang === "zh" ? "主导航" : "Primary navigation"}>
+    <div class="navbar-start">
+      <a class="brand-link" href={homePath}>Yangrui Gong</a>
+    </div>
+    <div class="navbar-end">
+      <ul class="menu menu-horizontal nav-links">
+        <li><a href={writingPath} aria-current={isCurrent(writingPath) ? "page" : undefined}>{t.writing}</a></li>
+        <li><a href={resumePath} aria-current={isCurrent(resumePath) ? "page" : undefined}>{t.resume}</a></li>
+        <li class="language-item">
+          <a href={alternatePath} lang={lang === "en" ? "zh-CN" : "en"}>
+            {lang === "en" ? "中文" : "EN"}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,52 @@
+[
+  {
+    "id": "cares",
+    "order": 1,
+    "title": "CARES: A Comprehensive Benchmark of Trustworthiness in Medical Vision Language Models",
+    "authors": "Peng Xia, Ze Chen, Juanxi Tian, Yangrui Gong, Ruibo Hou, Yue Xu, Zhenbang Wu, Zhiyuan Fan, Yiyang Zhou, Kangyu Zhu, Wenhao Zheng, Zhaoyang Wang, Xiao Wang, Xuchao Zhang, Chetan Bansal, Marc Niethammer, Junzhou Huang, Hongtu Zhu, Yun Li, Jimeng Sun, Zongyuan Ge, Gang Li, James Zou, Huaxiu Yao",
+    "venue": "NeurIPS 2024, Datasets & Benchmarks Track",
+    "links": [
+      {
+        "label": { "en": "Paper", "zh": "论文" },
+        "url": "https://arxiv.org/abs/2406.06007"
+      },
+      {
+        "label": { "en": "Project", "zh": "项目" },
+        "url": "https://cares-ai.github.io/"
+      },
+      {
+        "label": { "en": "Code", "zh": "代码" },
+        "url": "https://github.com/richard-peng-xia/CARES"
+      }
+    ]
+  },
+  {
+    "id": "masked-snake-attention",
+    "order": 2,
+    "title": "Masked Snake Attention for Fundus Image Restoration with Vessel Preservation",
+    "authors": "Xiaohuan Ding, Yangrui Gong, Tianyi Shi, Zihang Huang, Gangwei Xu, Xin Yang",
+    "venue": "ACM Multimedia 2024",
+    "links": [
+      {
+        "label": { "en": "Paper", "zh": "论文" },
+        "url": "https://dl.acm.org/doi/10.1145/3664647.3680722"
+      }
+    ]
+  },
+  {
+    "id": "zero-shot-multilabel",
+    "order": 3,
+    "title": "Synergizing Embedding and Generative Language Models for Zero-Shot Multi-Label Text Classification",
+    "authors": "Yangrui Gong, Hangxiao Zhu, Yuyang Bai, Yu Zhang",
+    "venue": "Manuscript",
+    "links": []
+  },
+  {
+    "id": "raps-plus",
+    "order": 4,
+    "title": "RAPS+: Improved Conformal Prediction with Empirical Distribution",
+    "authors": "Yangrui Gong, Zhihang Ren, Yunhui Guo, David Whitney",
+    "venue": "Manuscript",
+    "links": []
+  }
+]

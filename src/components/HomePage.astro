@@ -1,0 +1,101 @@
+---
+import { getCollection } from "astro:content";
+import type { Locale } from "../i18n";
+import { localePath, localized, ui } from "../i18n";
+import { getPublishedWriting, getSiteData } from "../lib/content";
+import SectionHeading from "./SectionHeading.astro";
+import WritingList from "./WritingList.astro";
+
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const t = ui[lang];
+
+const [{ profile, home }, allExperience, allProjects, allPosts] = await Promise.all([
+  getSiteData(),
+  getCollection("experience"),
+  getCollection("projects"),
+  getPublishedWriting(),
+]);
+
+const pickById = <T extends { id: string }>(items: T[], ids: string[]) =>
+  ids.map((id) => items.find((item) => item.id === id)).filter((item): item is T => Boolean(item));
+
+const selectedExperience = pickById(allExperience, home.data.experience.itemIds);
+const selectedProjects = pickById(allProjects, home.data.projects.itemIds);
+const selectedPosts = home.data.writing.itemIds
+  .map((key) => allPosts.find((post) => post.data.translationKey === key))
+  .filter((post): post is (typeof allPosts)[number] => Boolean(post));
+---
+
+<div class="home-shell">
+  <section class="home-hero" aria-labelledby="hero-title">
+    <p class="hero-greeting"><span>Hi,</span> I’m Yangrui.</p>
+    <h1 id="hero-title">{localized(profile.data.headline, lang)}</h1>
+    <p class="hero-intro">{localized(profile.data.intro, lang)}</p>
+    <div class="hero-actions">
+      <a class="link link-hover hero-link primary-link" href={localePath(lang, "/writing/")}>{t.readWriting} →</a>
+      <a class="link link-hover hero-link" href={localePath(lang, "/resume/")}>{t.viewResume} →</a>
+    </div>
+  </section>
+
+  {home.data.experience.enabled && selectedExperience.length > 0 && (
+    <section class="home-section" aria-labelledby="experience-heading">
+      <SectionHeading title={t.experience} />
+      <ol class="timeline-list">
+        {selectedExperience.map((item) => (
+          <li class="timeline-row">
+            <span class="timeline-date">{item.data.period}</span>
+            <div>
+              <h3>{localized(item.data.role, lang)}</h3>
+              <p class="timeline-org">
+                {item.data.url ? (
+                  <a class="link link-hover" href={item.data.url} target="_blank" rel="noreferrer">
+                    {localized(item.data.organization, lang)}
+                  </a>
+                ) : localized(item.data.organization, lang)}
+              </p>
+              <p>{localized(item.data.description, lang)}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  {home.data.projects.enabled && selectedProjects.length > 0 && (
+    <section class="home-section" aria-labelledby="projects-heading">
+      <SectionHeading title={t.projects} />
+      <ol class="project-list">
+        {selectedProjects.map((project) => (
+          <li class="project-row">
+            <div>
+              <h3>{project.data.name}</h3>
+              <p>{localized(project.data.summary, lang)}</p>
+              <div class="tag-list compact" aria-label="Technologies">
+                {project.data.technologies.map((technology) => <span>{technology}</span>)}
+              </div>
+            </div>
+            <div class="project-links">
+              {project.data.links.map((link) => (
+                <a class="link link-hover" href={link.url} target="_blank" rel="noreferrer">
+                  {localized(link.label, lang)} ↗
+                </a>
+              ))}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+
+  {home.data.writing.enabled && selectedPosts.length > 0 && (
+    <section class="home-section" aria-labelledby="writing-heading">
+      <SectionHeading
+        title={t.latestWriting}
+        actionLabel={t.allWriting}
+        actionHref={localePath(lang, "/writing/")}
+      />
+      <WritingList posts={selectedPosts} {lang} />
+    </section>
+  )}
+</div>

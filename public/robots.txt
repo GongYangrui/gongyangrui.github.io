@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gongyangrui.github.io/sitemap-index.xml

@@ -1,0 +1,61 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+import type { Locale } from "../i18n";
+import { ui } from "../i18n";
+
+interface Props {
+  lang: Locale;
+  title: string;
+  description: string;
+  canonicalPath: string;
+  alternatePath: string;
+  type?: "website" | "article";
+}
+
+const {
+  lang,
+  title,
+  description,
+  canonicalPath,
+  alternatePath,
+  type = "website",
+} = Astro.props;
+
+const canonical = new URL(canonicalPath, Astro.site);
+const alternateLang = lang === "en" ? "zh" : "en";
+const alternate = new URL(alternatePath, Astro.site);
+---
+
+<!doctype html>
+<html lang={lang === "zh" ? "zh-CN" : "en"}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f9f7f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#201d1c" media="(prefers-color-scheme: dark)" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Yangrui Gong" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={alternateLang === "zh" ? "zh-CN" : "en"} href={alternate} />
+    <link rel="alternate" hreflang="x-default" href={new URL(canonicalPath.replace(/^\/zh/, "") || "/", Astro.site)} />
+    <link rel="alternate" type="application/rss+xml" title="Yangrui Gong — Writing" href={new URL("/rss.xml", Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{ui[lang].skip}</a>
+    <Header {lang} currentPath={Astro.url.pathname} {alternatePath} />
+    <main id="main-content" class="site-main">
+      <slot />
+    </main>
+    <Footer {lang} />
+  </body>
+</html>

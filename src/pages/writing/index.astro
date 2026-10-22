@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WritingList from "../../components/WritingList.astro";
+import { getPublishedWriting } from "../../lib/content";
+
+const posts = await getPublishedWriting();
+---
+
+<BaseLayout
+  lang="en"
+  title="Writing · Yangrui Gong"
+  description="Technical notes on backend systems, practical AI applications, infrastructure, and tools."
+  canonicalPath="/writing/"
+  alternatePath="/zh/writing/"
+>
+  <div class="listing-shell">
+    <header class="page-intro">
+      <p class="eyebrow">Writing</p>
+      <h1>Notes from building and learning.</h1>
+      <p>Backend systems, useful AI, infrastructure, and the tools I want to remember.</p>
+    </header>
+    <WritingList {posts} lang="en" />
+  </div>
+</BaseLayout>

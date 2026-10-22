@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import WritingList from "../../../components/WritingList.astro";
+import { getPublishedWriting } from "../../../lib/content";
+
+const posts = await getPublishedWriting();
+---
+
+<BaseLayout
+  lang="zh"
+  title="文章 · 龚杨睿"
+  description="关于后端系统、AI 应用、基础设施和工具的技术记录。"
+  canonicalPath="/zh/writing/"
+  alternatePath="/writing/"
+>
+  <div class="listing-shell">
+    <header class="page-intro">
+      <p class="eyebrow">Writing</p>
+      <h1>记录实践，也记录思考。</h1>
+      <p>关于后端系统、实用 AI、基础设施，以及值得留存的工具与方法。</p>
+    </header>
+    <WritingList {posts} lang="zh" />
+  </div>
+</BaseLayout>

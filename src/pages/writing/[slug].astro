@@ -1,0 +1,27 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("writing", ({ data }) => !data.draft);
+  const englishPosts = posts.filter((post) => post.data.lang === "en");
+
+  return englishPosts.map((post) => ({ params: { slug: post.data.slug }, props: { post, posts } }));
+}
+
+interface Props {
+  post: CollectionEntry<"writing">;
+  posts: CollectionEntry<"writing">[];
+}
+
+const { post, posts } = Astro.props;
+const translation = posts.find(
+  (candidate) => candidate.data.lang === "zh" && candidate.data.translationKey === post.data.translationKey,
+);
+const alternatePath = translation ? `/zh/writing/${translation.data.slug}/` : "/zh/writing/";
+const { Content, headings } = await render(post);
+---
+
+<ArticleLayout {post} {headings} {alternatePath} hasTranslation={Boolean(translation)}>
+  <Content />
+</ArticleLayout>
