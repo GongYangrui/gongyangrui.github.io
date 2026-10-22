@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import type { Locale } from "../i18n";
-import { formatDate, writingPath } from "../lib/content";
+import PostRow from "./PostRow.astro";
 
 interface Props {
   posts: CollectionEntry<"writing">[];
@@ -12,21 +12,6 @@ interface Props {
 const { posts, lang, showDescriptions = true } = Astro.props;
 ---
 
-<ol class="writing-list">
-  {posts.map((post) => (
-    <li class="writing-row">
-      <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt, lang)}</time>
-      <div class="writing-copy">
-        <div class="writing-title-line">
-          <h3><a class="writing-link" href={writingPath(post.data.lang, post.data.slug)}>{post.data.title}</a></h3>
-          {post.data.lang !== lang && <span class="badge badge-ghost badge-sm">{post.data.lang.toUpperCase()}</span>}
-        </div>
-        {showDescriptions && <p>{post.data.description}</p>}
-        <div class="tag-list compact" aria-label="Tags">
-          {post.data.tags.map((tag) => <span>{tag}</span>)}
-        </div>
-      </div>
-      <span class="row-arrow" aria-hidden="true">↗</span>
-    </li>
-  ))}
-</ol>
+<div class="post-list">
+  {posts.map((post) => <PostRow {post} {lang} showDescription={showDescriptions} />)}
+</div>

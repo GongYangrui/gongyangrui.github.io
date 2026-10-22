@@ -20,6 +20,7 @@ const profile = defineCollection({
   loader: file("src/data/profile.json"),
   schema: z.object({
     name: z.string(),
+    nameZh: z.string().optional(),
     headline: localizedText,
     intro: localizedText,
     email: z.string().email(),
@@ -69,6 +70,7 @@ const education = defineCollection({
 const projects = defineCollection({
   loader: file("src/data/projects.json"),
   schema: z.object({
+    order: z.number().int().nonnegative(),
     name: z.string(),
     summary: localizedText,
     technologies: z.array(z.string()),
@@ -98,7 +100,11 @@ const honors = defineCollection({
 });
 
 const writing = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/writing" }),
+  loader: glob({
+    pattern: "**/*.{md,mdx}",
+    base: "./src/content/writing",
+    generateId: ({ entry }) => entry.replace(/\.(md|mdx)$/, ""),
+  }),
   schema: z.object({
     lang: z.enum(["en", "zh"]),
     slug: z.string(),

@@ -2,6 +2,7 @@
   {
     "id": "profile",
     "name": "Yangrui Gong",
+    "nameZh": "龚杨睿",
     "headline": {
       "en": "I build backend systems and practical AI applications.",
       "zh": "我关注后端系统与实用的 AI 应用。"

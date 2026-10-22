@@ -1,0 +1,38 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { Locale } from "../i18n";
+import PostRow from "./PostRow.astro";
+
+interface Group {
+  label: string;
+  slug: string;
+  posts: CollectionEntry<"writing">[];
+}
+
+interface Props {
+  groups: Group[];
+  lang: Locale;
+}
+
+const { groups, lang } = Astro.props;
+const categoriesLabel = lang === "zh" ? "分类" : "Categories";
+---
+
+<div class="blog-directory">
+  <nav class="blog-groups" aria-label={categoriesLabel}>
+    <span class="blog-groups-label">{categoriesLabel}</span>
+    {groups.map((group) => (
+      <a href={`#${group.slug}`}>{group.label}</a>
+    ))}
+  </nav>
+  <div class="blog-content">
+    {groups.map((group) => (
+      <section class="blog-group" id={group.slug}>
+        <h2>{group.label}</h2>
+        <div class="post-list">
+          {group.posts.map((post) => <PostRow {post} {lang} />)}
+        </div>
+      </section>
+    ))}
+  </div>
+</div>

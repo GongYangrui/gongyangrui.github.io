@@ -2,6 +2,13 @@
 
 A bilingual, content-first personal website built with Astro and TypeScript. English is the default language; Chinese lives under `/zh/`. The site is fully static and is deployed to GitHub Pages.
 
+## Pages
+
+- `/` and `/zh/` — profile, education, experience, selected projects, writing, publications, and honors
+- `/projects/` and `/zh/projects/` — full project list and publications
+- `/writing/` and `/zh/writing/` — posts grouped by their first tag
+- `/writing/[slug]/` and `/zh/writing/[slug]/` — article pages with an optional table of contents
+
 ## Local development
 
 ```bash
@@ -15,7 +22,7 @@ Before publishing, run the same checks as CI:
 npm run verify
 ```
 
-This validates Astro and the content schemas, builds the site, generates `resume.pdf` from the online resume, and checks internal links.
+This validates Astro and the content schemas, builds the static site, and checks internal links.
 
 ## Updating content
 
@@ -36,12 +43,13 @@ Content can also be edited directly:
 - Homepage selection and order: `src/data/home.json`
 - Organization logos and project images: upload in the CMS Media view, then select the image on the relevant entry
 
-`itemIds` controls homepage order. Set a module's `enabled` field to `false` to remove it completely. Projects are intentionally disabled by default.
-Logos are optional. If an experience or education entry has no image, the interface shows a compact initial mark instead of a broken image or placeholder message. Each uploaded image also has bilingual alternative text fields.
+`itemIds` controls homepage order. Set a module's `enabled` field to `false` to remove it completely. Logos and project images are optional; entries without an image use a compact initial mark instead.
+
+The blog groups posts by the **first tag**. Put the primary category first, then any additional tags. Posts without tags are grouped under “Other”.
 
 ## Publishing a post
 
-Create a Markdown file in the matching language folder. `translationKey` connects translations; the two posts may use different slugs. Drafts are excluded from pages, RSS, and the sitemap.
+Create a Markdown file in the matching language folder. `translationKey` connects translations. Drafts are excluded from pages, RSS, and the sitemap.
 
 ```yaml
 ---
@@ -57,6 +65,20 @@ featured: false
 ---
 ```
 
+### Math
+
+Markdown posts support inline and display math through KaTeX:
+
+```md
+Inline math: $E = mc^2$
+
+$$
+\int_{-\infty}^{\infty} e^{-x^2}\,dx = \sqrt{\pi}
+$$
+```
+
+Code spans and fenced code blocks are left untouched, so write a literal dollar sign in code as `` `$HOME` ``. The `Markdown and Math` post is a rendering reference for tables, code, footnotes, task lists, and formulas.
+
 ## GitHub Pages setup
 
-In the repository settings, choose **GitHub Actions** as the Pages source. The workflow builds the site, installs Chromium, generates the PDF resume, checks links, and publishes `dist/` using the official GitHub Pages actions.
+In the repository settings, choose **GitHub Actions** as the Pages source. The workflow builds the site, checks links, and publishes `dist/` using the official GitHub Pages actions.

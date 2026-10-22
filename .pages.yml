@@ -17,6 +17,7 @@ content:
     fields:
       - { name: id, label: Stable ID, type: string, hidden: true, default: profile }
       - { name: name, label: Name, type: string, required: true }
+      - { name: nameZh, label: Chinese name, type: string }
       - name: headline
         label: Headline
         type: object
@@ -86,7 +87,7 @@ content:
     list: true
     fields:
       - { name: id, label: Stable ID, type: string, required: true }
-      - { name: order, label: Resume order, type: number, required: true }
+      - { name: order, label: Display order, type: number, required: true }
       - { name: period, label: Date, type: string, required: true }
       - name: role
         label: Role
@@ -132,7 +133,7 @@ content:
     list: true
     fields:
       - { name: id, label: Stable ID, type: string, required: true }
-      - { name: order, label: Resume order, type: number, required: true }
+      - { name: order, label: Display order, type: number, required: true }
       - { name: period, label: Date, type: string, required: true }
       - name: institution
         label: Institution
@@ -167,6 +168,7 @@ content:
     list: true
     fields:
       - { name: id, label: Stable ID, type: string, required: true }
+      - { name: order, label: Display order, type: number, required: true }
       - { name: name, label: Name, type: string, required: true }
       - name: summary
         label: Summary
@@ -207,7 +209,7 @@ content:
     list: true
     fields:
       - { name: id, label: Stable ID, type: string, required: true }
-      - { name: order, label: Resume order, type: number, required: true }
+      - { name: order, label: Display order, type: number, required: true }
       - { name: title, label: Title, type: string, required: true }
       - { name: authors, label: Authors, type: text, required: true }
       - { name: venue, label: Venue, type: string, required: true }
@@ -232,7 +234,7 @@ content:
     list: true
     fields:
       - { name: id, label: Stable ID, type: string, required: true }
-      - { name: order, label: Resume order, type: number, required: true }
+      - { name: order, label: Display order, type: number, required: true }
       - { name: date, label: Date, type: string, required: true }
       - name: title
         label: Title

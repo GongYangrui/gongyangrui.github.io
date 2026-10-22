@@ -4,6 +4,8 @@ import type { Locale } from "../i18n";
 import { localePath, localized, ui } from "../i18n";
 import { getPublishedWriting, getSiteData } from "../lib/content";
 import EntityMark from "./EntityMark.astro";
+import IntroCard from "./IntroCard.astro";
+import ProjectCard from "./ProjectCard.astro";
 import SectionHeading from "./SectionHeading.astro";
 import WritingList from "./WritingList.astro";
 
@@ -24,7 +26,7 @@ const [
   getCollection("experience"),
   getCollection("education"),
   getCollection("projects"),
-  getPublishedWriting(),
+  getPublishedWriting(lang),
   getCollection("publications"),
   getCollection("honors"),
 ]);
@@ -43,127 +45,111 @@ const selectedPosts = home.data.writing.itemIds
 ---
 
 <div class="home-shell">
-  <section class="home-hero" aria-labelledby="hero-title">
-    <p class="hero-kicker">{t.openToWork}</p>
-    <h1 id="hero-title"><span>Hi,</span> I’m Yangrui.</h1>
-    <p class="hero-statement">{localized(profile.data.headline, lang)}</p>
-    <p class="hero-intro">{localized(profile.data.intro, lang)}</p>
-    <div class="hero-actions" aria-label={lang === "zh" ? "主要链接" : "Primary links"}>
-      <a class="link link-hover hero-link primary-link" href={localePath(lang, "/writing/")}>{t.readWriting} →</a>
-      <a class="link link-hover hero-link" href={localePath(lang, "/resume/")}>{t.viewResume} →</a>
-      <a class="link link-hover hero-link" href={profile.data.github} target="_blank" rel="noreferrer">GitHub ↗</a>
-    </div>
-  </section>
+  <IntroCard profile={profile.data} {lang} />
 
-  {home.data.experience.enabled && selectedExperience.length > 0 && (
-    <section class="home-section" id="experience" aria-labelledby="experience-heading">
-      <SectionHeading id="experience-heading" title={t.experience} />
-      <ol class="list entity-list">
-        {selectedExperience.map((item) => (
-          <li class="list-row entity-row">
-            <EntityMark name={item.data.organization} logo={item.data.logo} {lang} />
-            <div class="list-col-grow entity-copy">
-              <h3>{localized(item.data.organization, lang)}</h3>
-              <p class="entity-role">{localized(item.data.role, lang)}</p>
-              <p>{localized(item.data.description, lang)}</p>
-              {item.data.url && (
-                <a class="entity-url" href={item.data.url} target="_blank" rel="noreferrer" aria-label={`${localized(item.data.organization, lang)} website`}>↗</a>
-              )}
-            </div>
-            <span class="entity-date">{item.data.period}</span>
-          </li>
-        ))}
-      </ol>
+  <div class="home-content prose">
+    <section class="home-section" id="about" aria-labelledby="about-heading">
+      <SectionHeading id="about-heading" title={t.about} />
+      <p>{localized(profile.data.intro, lang)}</p>
     </section>
-  )}
 
-  {home.data.education.enabled && selectedEducation.length > 0 && (
-    <section class="home-section" id="education" aria-labelledby="education-heading">
-      <SectionHeading id="education-heading" title={t.education} />
-      <ol class="list entity-list">
-        {selectedEducation.map((item) => (
-          <li class="list-row entity-row">
-            <EntityMark name={item.data.institution} logo={item.data.logo} {lang} />
-            <div class="list-col-grow entity-copy">
-              <h3>{localized(item.data.institution, lang)}</h3>
-              <p class="entity-role">{localized(item.data.program, lang)}</p>
-              {item.data.url && (
-                <a class="entity-url" href={item.data.url} target="_blank" rel="noreferrer" aria-label={`${localized(item.data.institution, lang)} website`}>↗</a>
-              )}
-            </div>
-            <span class="entity-date">{item.data.period}</span>
-          </li>
-        ))}
-      </ol>
-    </section>
-  )}
-
-  {home.data.projects.enabled && selectedProjects.length > 0 && (
-    <section class="home-section" aria-labelledby="projects-heading">
-      <SectionHeading id="projects-heading" title={t.selectedWork} />
-      <ol class="project-list">
-        {selectedProjects.map((project) => (
-          <li class:list={["project-row", project.data.image && "project-row-with-image"]}>
-            {project.data.image && (
-              <img class="project-image" src={project.data.image.src} alt={localized(project.data.image.alt, lang)} loading="lazy" decoding="async" />
-            )}
-            <div>
-              <h3>{project.data.name}</h3>
-              <p>{localized(project.data.summary, lang)}</p>
-              <div class="tag-list compact" aria-label="Technologies">
-                {project.data.technologies.map((technology) => <span>{technology}</span>)}
+    {home.data.education.enabled && selectedEducation.length > 0 && (
+      <section class="home-section" id="education" aria-labelledby="education-heading">
+        <SectionHeading id="education-heading" title={t.education} />
+        <div class="entry-list">
+          {selectedEducation.map((item) => (
+            <div class="entry-item">
+              <EntityMark label={localized(item.data.institution, lang)} logo={item.data.logo} />
+              <div class="entry-copy">
+                <strong>{localized(item.data.institution, lang)}</strong>
+                <span>{localized(item.data.program, lang)}</span>
               </div>
+              <time>{item.data.period}</time>
             </div>
-            <div class="project-links">
-              {project.data.links.map((link) => (
-                <a class="link link-hover" href={link.url} target="_blank" rel="noreferrer">
-                  {localized(link.label, lang)} ↗
-                </a>
-              ))}
-            </div>
-          </li>
-        ))}
-      </ol>
-    </section>
-  )}
+          ))}
+        </div>
+      </section>
+    )}
 
-  {home.data.writing.enabled && selectedPosts.length > 0 && (
-    <section class="home-section writing-section" id="writing" aria-labelledby="writing-heading">
-      <SectionHeading id="writing-heading" title={t.latestWriting} actionLabel={t.allWriting} actionHref={localePath(lang, "/writing/")} />
-      <WritingList posts={selectedPosts} {lang} />
-    </section>
-  )}
-
-  {home.data.publications.enabled && selectedPublications.length > 0 && (
-    <section class="home-section publication-section" id="publications" aria-labelledby="publications-heading">
-      <SectionHeading id="publications-heading" title={t.publications} />
-      <ol class="publication-list">
-        {selectedPublications.map((publication) => (
-          <li>
-            <h3>{publication.data.title}</h3>
-            <p>{publication.data.authors}</p>
-            <p class="publication-venue">{publication.data.venue}</p>
-            {publication.data.links.length > 0 && (
-              <div class="publication-links">
-                {publication.data.links.map((link) => (
-                  <a class="link link-hover" href={link.url} target="_blank" rel="noreferrer">{localized(link.label, lang)} ↗</a>
-                ))}
+    {home.data.experience.enabled && selectedExperience.length > 0 && (
+      <section class="home-section" id="experience" aria-labelledby="experience-heading">
+        <SectionHeading id="experience-heading" title={t.experience} />
+        <div class="entry-list">
+          {selectedExperience.map((item) => (
+            <div class="entry-item">
+              <EntityMark label={localized(item.data.organization, lang)} logo={item.data.logo} />
+              <div class="entry-copy">
+                <strong>{localized(item.data.organization, lang)}</strong>
+                <span>{localized(item.data.role, lang)}</span>
+                <p>{localized(item.data.description, lang)}</p>
               </div>
-            )}
-          </li>
-        ))}
-      </ol>
-    </section>
-  )}
+              <time>{item.data.period}</time>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
 
-  {home.data.honors.enabled && selectedHonors.length > 0 && (
-    <section class="home-section" id="honors" aria-labelledby="honors-heading">
-      <SectionHeading id="honors-heading" title={t.honors} />
-      <ol class="honor-list">
-        {selectedHonors.map((honor) => (
-          <li><span>{honor.data.date}</span><strong>{localized(honor.data.title, lang)}</strong></li>
-        ))}
-      </ol>
-    </section>
-  )}
+    {home.data.projects.enabled && selectedProjects.length > 0 && (
+      <section class="home-section" id="projects" aria-labelledby="projects-heading">
+        <SectionHeading
+          id="projects-heading"
+          title={t.selectedProjects}
+          actionLabel={t.projects}
+          actionHref={localePath(lang, "/projects/")}
+        />
+        <div class="project-list">
+          {selectedProjects.map((project) => <ProjectCard {project} {lang} />)}
+        </div>
+      </section>
+    )}
+
+    {home.data.writing.enabled && selectedPosts.length > 0 && (
+      <section class="home-section" id="writing" aria-labelledby="writing-heading">
+        <SectionHeading
+          id="writing-heading"
+          title={t.writing}
+          actionLabel={t.allWriting}
+          actionHref={localePath(lang, "/writing/")}
+        />
+        <WritingList posts={selectedPosts} {lang} />
+      </section>
+    )}
+
+    {home.data.publications.enabled && selectedPublications.length > 0 && (
+      <section class="home-section" id="publications" aria-labelledby="publications-heading">
+        <SectionHeading id="publications-heading" title={t.publications} />
+        <div class="publication-list">
+          {selectedPublications.map((publication) => (
+            <article class="publication-entry">
+              <h3>{publication.data.title}</h3>
+              <p class="publication-authors">{publication.data.authors}</p>
+              <p class="publication-venue">{publication.data.venue}</p>
+              {publication.data.links.length > 0 && (
+                <p class="publication-links">
+                  {publication.data.links.map((link) => (
+                    <a href={link.url} target="_blank" rel="noreferrer">{localized(link.label, lang)} ↗</a>
+                  ))}
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {home.data.honors.enabled && selectedHonors.length > 0 && (
+      <section class="home-section" id="honors" aria-labelledby="honors-heading">
+        <SectionHeading id="honors-heading" title={t.honors} />
+        <div class="honor-list">
+          {selectedHonors.map((honor) => (
+            <div class="honor-item">
+              <time>{honor.data.date}</time>
+              <span>{localized(honor.data.title, lang)}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+  </div>
 </div>

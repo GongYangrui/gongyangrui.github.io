@@ -10,15 +10,7 @@ if (!profile) throw new Error("Profile is missing.");
 const t = ui[lang];
 ---
 
-<footer class="footer site-footer sm:footer-horizontal">
-  <div class="footer-identity">
-    <strong>{profile.data.name}</strong>
-    <span>{profile.data.headline[lang]}</span>
-  </div>
-  <nav aria-label={t.contact}>
-    <a class="link link-hover" href={profile.data.github} target="_blank" rel="noreferrer">{t.github}</a>
-    {profile.data.linkedin && <a class="link link-hover" href={profile.data.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>}
-    <a class="link link-hover" href={`mailto:${profile.data.email}`}>{t.email}</a>
-  </nav>
-  <p class="copyright">© {new Date().getFullYear()} Yangrui Gong</p>
+<footer class="site-footer">
+  <span>© {new Date().getFullYear()} {profile.data.name}</span>
+  <span>{t.footerTagline}</span>
 </footer>

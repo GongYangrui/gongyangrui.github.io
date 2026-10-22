@@ -1,34 +1,30 @@
 ---
-import type { Locale } from "../i18n";
-import { localized } from "../i18n";
-
-interface Props {
-  name: { en: string; zh: string };
-  lang: Locale;
-  logo?: {
-    src: string;
-    alt: { en: string; zh: string };
-  };
+interface Visual {
+  src: string;
+  alt: { en: string; zh: string };
 }
 
-const { name, lang, logo } = Astro.props;
-const displayName = localized(name, lang);
-const ignoredWords = new Set(["a", "an", "and", "at", "for", "in", "of", "the", "to", "with"]);
-const initials = displayName
-  .split(/[\s–—-]+/)
-  .filter((word) => word && !ignoredWords.has(word.toLowerCase()))
+interface Props {
+  label: string;
+  logo?: Visual;
+}
+
+const { label, logo } = Astro.props;
+const stopWords = new Set(["of", "the", "with", "and", "for", "at", "in", "to", "a", "an"]);
+const initials = label
+  .trim()
+  .split(/\s+/)
+  .filter((word) => !stopWords.has(word.toLowerCase()))
   .slice(0, 2)
-  .map((word) => word[0])
+  .map((word) => word.charAt(0))
   .join("")
   .toUpperCase();
 ---
 
-<div class:list={["avatar entity-mark", !logo && "avatar-placeholder"]} aria-hidden={!logo ? "true" : undefined}>
-  <div>
-    {logo ? (
-      <img src={logo.src} alt={localized(logo.alt, lang)} loading="lazy" decoding="async" />
-    ) : (
-      <span>{initials}</span>
-    )}
-  </div>
-</div>
+<span class="entity-mark" aria-hidden="true">
+  {logo ? (
+    <img src={logo.src} alt="" loading="lazy" decoding="async" />
+  ) : (
+    <span>{initials}</span>
+  )}
+</span>

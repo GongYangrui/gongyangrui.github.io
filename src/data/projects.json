@@ -6,17 +6,30 @@
       "en": "A spaced-repetition system for turning solved algorithm problems into a sustainable review routine, with a browser extension, review queues, notes, and progress analytics.",
       "zh": "一个面向算法学习者的间隔复习系统，包含浏览器扩展、复习队列、笔记和学习进度分析。"
     },
-    "technologies": ["Nuxt", "TypeScript", "PostgreSQL", "Redis", "Docker"],
+    "technologies": [
+      "Nuxt",
+      "TypeScript",
+      "PostgreSQL",
+      "Redis",
+      "Docker"
+    ],
     "links": [
       {
-        "label": { "en": "GitHub", "zh": "GitHub" },
+        "label": {
+          "en": "GitHub",
+          "zh": "GitHub"
+        },
         "url": "https://github.com/GongYangrui/AlgoRecall"
       },
       {
-        "label": { "en": "Live site", "zh": "在线网站" },
+        "label": {
+          "en": "Live site",
+          "zh": "在线网站"
+        },
         "url": "https://algorecall.rayspace.top"
       }
-    ]
+    ],
+    "order": 1
   },
   {
     "id": "sky-take-out",
@@ -25,13 +38,21 @@
       "en": "A Java backend implementation of a food delivery service used to practice layered services and API development.",
       "zh": "用于练习分层服务与 API 开发的 Java 外卖系统后端实现。"
     },
-    "technologies": ["Java", "Spring Boot", "MySQL"],
+    "technologies": [
+      "Java",
+      "Spring Boot",
+      "MySQL"
+    ],
     "links": [
       {
-        "label": { "en": "GitHub", "zh": "GitHub" },
+        "label": {
+          "en": "GitHub",
+          "zh": "GitHub"
+        },
         "url": "https://github.com/GongYangrui/sky_take_out"
       }
-    ]
+    ],
+    "order": 2
   },
   {
     "id": "heima-dianping",
@@ -40,12 +61,19 @@
       "en": "A Java and Redis practice project exploring caching and common high-concurrency backend patterns.",
       "zh": "一个使用 Java 与 Redis 练习缓存和常见高并发后端模式的项目。"
     },
-    "technologies": ["Java", "Redis"],
+    "technologies": [
+      "Java",
+      "Redis"
+    ],
     "links": [
       {
-        "label": { "en": "GitHub", "zh": "GitHub" },
+        "label": {
+          "en": "GitHub",
+          "zh": "GitHub"
+        },
         "url": "https://github.com/GongYangrui/My_heima_dianping"
       }
-    ]
+    ],
+    "order": 3
   }
 ]

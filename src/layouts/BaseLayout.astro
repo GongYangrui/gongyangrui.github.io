@@ -35,8 +35,8 @@ const alternate = new URL(alternatePath, Astro.site);
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f9f7f5" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#201d1c" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#f5f8fd" />
     <meta property="og:type" content={type} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -52,10 +52,12 @@ const alternate = new URL(alternatePath, Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#main-content">{ui[lang].skip}</a>
-    <Header {lang} currentPath={Astro.url.pathname} {alternatePath} />
-    <main id="main-content" class="site-main">
-      <slot />
-    </main>
-    <Footer {lang} />
+    <div class="site-shell">
+      <Header {lang} currentPath={Astro.url.pathname} {alternatePath} />
+      <main id="main-content">
+        <slot />
+      </main>
+      <Footer {lang} />
+    </div>
   </body>
 </html>

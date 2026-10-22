@@ -39,12 +39,6 @@ jobs:
       - name: Build static site
         run: npm run build
 
-      - name: Install PDF browser
-        run: npx playwright install --with-deps chromium
-
-      - name: Generate resume PDF
-        run: npm run build:pdf
-
       - name: Check internal links
         run: npm run check:links
 

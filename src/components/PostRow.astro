@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from "astro:content";
+import type { Locale } from "../i18n";
+import { formatDate, writingPath } from "../lib/content";
+
+interface Props {
+  post: CollectionEntry<"writing">;
+  lang: Locale;
+  showDescription?: boolean;
+}
+
+const { post, lang, showDescription = true } = Astro.props;
+---
+
+<article class="post-row">
+  <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt, lang)}</time>
+  <div class="post-row-body">
+    <h3><a href={writingPath(post.data.lang, post.data.slug)}>{post.data.title}</a></h3>
+    {showDescription && <p>{post.data.description}</p>}
+    {post.data.tags.length > 0 && (
+      <ul class="post-tags" aria-label={lang === "zh" ? "标签" : "Tags"}>
+        {post.data.tags.map((tag) => <li>{tag}</li>)}
+      </ul>
+    )}
+  </div>
+</article>

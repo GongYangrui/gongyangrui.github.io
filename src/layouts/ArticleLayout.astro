@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import "katex/dist/katex.min.css";
 import BaseLayout from "./BaseLayout.astro";
 import { formatDate, readingMinutes } from "../lib/content";
 import { ui, type Locale } from "../i18n";
@@ -16,6 +17,8 @@ const lang = post.data.lang as Locale;
 const t = ui[lang];
 const minutes = readingMinutes(post.body ?? "");
 const visibleHeadings = headings.filter((heading) => heading.depth === 2);
+const hasToc = visibleHeadings.length > 1;
+const writingIndex = lang === "zh" ? "/zh/writing/" : "/writing/";
 ---
 
 <BaseLayout
@@ -26,36 +29,45 @@ const visibleHeadings = headings.filter((heading) => heading.depth === 2);
   {alternatePath}
   type="article"
 >
-  <article class="article-shell">
-    <header class="article-header">
-      <a class="link link-hover back-link" href={lang === "zh" ? "/zh/writing/" : "/writing/"}>← {t.backToWriting}</a>
-      <h1>{post.data.title}</h1>
-      <p class="article-deck">{post.data.description}</p>
-      <div class="article-meta">
-        <span>{t.published} {formatDate(post.data.publishedAt, lang)}</span>
-        {post.data.updatedAt && <span>{t.updated} {formatDate(post.data.updatedAt, lang)}</span>}
-        <span>{minutes} {t.minuteRead}</span>
-      </div>
-      <div class="tag-list" aria-label="Tags">
-        {post.data.tags.map((tag) => <span class="badge badge-ghost badge-sm">{tag}</span>)}
-      </div>
-      {!hasTranslation && (
-        <a class="translation-note link link-hover" href={alternatePath}>{t.noTranslation}</a>
-      )}
-    </header>
-
-    {visibleHeadings.length > 2 && (
-      <nav class="article-toc" aria-label="On this page">
-        <ol>
-          {visibleHeadings.map((heading) => (
-            <li><a class="link link-hover" href={`#${heading.slug}`}>{heading.text}</a></li>
-          ))}
-        </ol>
-      </nav>
+  <article class:list={["article", hasToc && "has-toc"]}>
+    {hasToc && (
+      <aside class="article-toc">
+        <details open>
+          <summary>{t.onThisPage}</summary>
+          <nav aria-label={t.onThisPage}>
+            <ul>
+              {visibleHeadings.map((heading) => (
+                <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
+              ))}
+            </ul>
+          </nav>
+        </details>
+      </aside>
     )}
 
-    <div class="prose">
-      <slot />
+    <div class="article-body">
+      <header class="article-heading">
+        <a class="back-link" href={writingIndex}>← {t.backToWriting}</a>
+        <h1>{post.data.title}</h1>
+        <p class="article-deck">{post.data.description}</p>
+        <div class="article-meta">
+          <time datetime={post.data.publishedAt.toISOString()}>{t.published} {formatDate(post.data.publishedAt, lang)}</time>
+          {post.data.updatedAt && <span>{t.updated} {formatDate(post.data.updatedAt, lang)}</span>}
+          <span>{minutes} {t.minuteRead}</span>
+        </div>
+        {post.data.tags.length > 0 && (
+          <ul class="post-tags" aria-label={lang === "zh" ? "标签" : "Tags"}>
+            {post.data.tags.map((tag) => <li>{tag}</li>)}
+          </ul>
+        )}
+        {!hasTranslation && (
+          <a class="translation-note" href={alternatePath}>{t.noTranslation}</a>
+        )}
+      </header>
+
+      <div class="prose article-prose">
+        <slot />
+      </div>
     </div>
   </article>
 </BaseLayout>

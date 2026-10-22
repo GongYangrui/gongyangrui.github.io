@@ -11,29 +11,29 @@ interface Props {
 const { lang, currentPath, alternatePath } = Astro.props;
 const t = ui[lang];
 const homePath = localePath(lang);
+const projectsPath = localePath(lang, "/projects/");
 const writingPath = localePath(lang, "/writing/");
-const resumePath = localePath(lang, "/resume/");
 
 function isCurrent(path: string) {
-  return currentPath === path || (path !== homePath && currentPath.startsWith(path));
+  if (path === homePath) return currentPath === homePath;
+  return currentPath === path || currentPath.startsWith(path);
 }
 ---
 
 <header class="site-header">
-  <nav class="navbar site-nav" aria-label={lang === "zh" ? "主导航" : "Primary navigation"}>
-    <div class="navbar-start">
-      <a class="brand-link" href={homePath}>Yangrui Gong</a>
-    </div>
-    <div class="navbar-end">
-      <ul class="menu menu-horizontal nav-links">
-        <li><a href={writingPath} aria-current={isCurrent(writingPath) ? "page" : undefined}>{t.writing}</a></li>
-        <li><a href={resumePath} aria-current={isCurrent(resumePath) ? "page" : undefined}>{t.resume}</a></li>
-        <li class="language-item">
-          <a href={alternatePath} lang={lang === "en" ? "zh-CN" : "en"}>
-            {lang === "en" ? "中文" : "EN"}
-          </a>
-        </li>
-      </ul>
-    </div>
+  <a class="site-name" href={homePath}>Yangrui Gong</a>
+  <nav class="main-nav" aria-label={lang === "zh" ? "主导航" : "Main navigation"}>
+    <a href={homePath} aria-current={isCurrent(homePath) ? "page" : undefined}>{t.home}</a>
+    <a href={projectsPath} aria-current={isCurrent(projectsPath) ? "page" : undefined}>{t.projects}</a>
+    <a href={writingPath} aria-current={isCurrent(writingPath) ? "page" : undefined}>{t.writing}</a>
+  </nav>
+  <nav class="language-nav" aria-label={lang === "zh" ? "语言" : "Language"}>
+    <a
+      href={alternatePath}
+      lang={lang === "en" ? "zh-CN" : "en"}
+      aria-label={lang === "en" ? "切换到中文" : "Switch to English"}
+    >
+      {lang === "en" ? "中文" : "EN"}
+    </a>
   </nav>
 </header>

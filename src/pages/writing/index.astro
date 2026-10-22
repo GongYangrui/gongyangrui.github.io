@@ -1,24 +1,27 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import WritingList from "../../components/WritingList.astro";
-import { getPublishedWriting } from "../../lib/content";
+import BlogDirectory from "../../components/BlogDirectory.astro";
+import { getPublishedWriting, groupByPrimaryTag } from "../../lib/content";
 
-const posts = await getPublishedWriting();
+const posts = await getPublishedWriting("en");
+const groups = groupByPrimaryTag(posts, "Other");
 ---
 
 <BaseLayout
   lang="en"
   title="Writing · Yangrui Gong"
-  description="Technical notes on backend systems, practical AI applications, infrastructure, and tools."
+  description="Notes on backend systems, practical AI applications, infrastructure, and tools."
   canonicalPath="/writing/"
   alternatePath="/zh/writing/"
 >
-  <div class="listing-shell">
-    <header class="page-intro">
-      <p class="eyebrow">Writing</p>
-      <h1>Notes from building and learning.</h1>
-      <p>Backend systems, useful AI, infrastructure, and the tools I want to remember.</p>
-    </header>
-    <WritingList {posts} lang="en" />
-  </div>
+  <header class="page-heading">
+    <p class="eyebrow">Writing &amp; notes</p>
+    <h1>Writing</h1>
+    <p>Notes from my work and study, grouped by topic.</p>
+  </header>
+  {groups.length > 0 ? (
+    <BlogDirectory {groups} lang="en" />
+  ) : (
+    <p class="empty-state">No posts yet.</p>
+  )}
 </BaseLayout>

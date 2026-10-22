@@ -1,9 +1,10 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import WritingList from "../../../components/WritingList.astro";
-import { getPublishedWriting } from "../../../lib/content";
+import BlogDirectory from "../../../components/BlogDirectory.astro";
+import { getPublishedWriting, groupByPrimaryTag } from "../../../lib/content";
 
-const posts = await getPublishedWriting();
+const posts = await getPublishedWriting("zh");
+const groups = groupByPrimaryTag(posts, "其他");
 ---
 
 <BaseLayout
@@ -13,12 +14,14 @@ const posts = await getPublishedWriting();
   canonicalPath="/zh/writing/"
   alternatePath="/writing/"
 >
-  <div class="listing-shell">
-    <header class="page-intro">
-      <p class="eyebrow">Writing</p>
-      <h1>记录实践，也记录思考。</h1>
-      <p>关于后端系统、实用 AI、基础设施，以及值得留存的工具与方法。</p>
-    </header>
-    <WritingList {posts} lang="zh" />
-  </div>
+  <header class="page-heading">
+    <p class="eyebrow">文章与笔记</p>
+    <h1>文章</h1>
+    <p>记录工作与学习中的思考，按主题整理。</p>
+  </header>
+  {groups.length > 0 ? (
+    <BlogDirectory {groups} lang="zh" />
+  ) : (
+    <p class="empty-state">暂无文章。</p>
+  )}
 </BaseLayout>
